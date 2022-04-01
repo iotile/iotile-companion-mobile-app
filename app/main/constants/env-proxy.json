@@ -1,0 +1,24 @@
+{
+  "DEV_MODE": true,
+  "HTTP_TIMEOUT": 30000,
+  "NAME": "IOTile Companion",
+  "ENABLE_SENTRY": false,
+  "SERVER_URLS": [
+    {
+      "shortName": "LOCALHOST",
+      "longName": "Local Server",
+      "url":"/proxy/api/v1"
+    },
+    {
+      "shortName": "STAGE",
+      "longName": "Proxy Staging Server",
+      "url":"/proxy_stage/api/v1"
+    },
+    {
+      "shortName": "PRODUCTION",
+      "longName": "Proxy Production Server",
+      "url": "/proxy_prod/api/v1",
+      "default": true
+    }
+  ]
+}

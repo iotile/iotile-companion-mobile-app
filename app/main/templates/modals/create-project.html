@@ -1,0 +1,35 @@
+<ion-modal-view class="">
+  <div class="ion-modal-content-stream-adjustments">
+    <ion-header-bar class="bar-positive">
+      <h1 class="title">Create a New Project</h1>
+    </ion-header-bar>
+    <ion-content>
+      <form name="projectForm" novalidate>
+        <div class="list">
+          <ion-item class="item item-divider" ng-if="vm.device">
+            Project Name:
+          </ion-item>
+          <label class="item item-input">
+              <input type="text" ng-model="vm.projectName" name="projectName"
+                    ng-maxlength="30" required="required" placeholder="<Enter Project Name>"></input>
+          </label>
+          <label  class="item" ng-show="projectForm.projectName.$error.maxlength">Max Length is 30 characters</label> 
+          <ion-item class="item item-divider" ng-if="vm.device">
+            Organization:
+          </ion-item>
+          <label class="item item-select">
+                <select ng-model="vm.selectedOrg" required="required" ng-options="x as x.name for x in vm.orgs track by x.slug">
+                      <option style="display:none" value="">Select an Org</option>
+                </select>
+            </label>
+        </div>
+      </form>
+    </ion-content>
+    <ion-footer-bar align-title="center" class="bar-positive">
+      <div class="button-bar">
+        <a ng-click="vm.onCancel()" class="button button-assertive icon-left ion-close-circled">Cancel</a>
+        <a ng-disabled="!vm.canSave()" ng-click="vm.onSave()" class="button button-balanced icon-left ion-checkmark-round">Save</a>
+      </div>
+    </ion-footer-bar>
+  </div>
+</ion-modal-view>

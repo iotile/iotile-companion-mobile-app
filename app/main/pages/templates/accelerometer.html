@@ -1,0 +1,51 @@
+<ion-view view-title="Accelerometer">
+  <ion-nav-buttons side="right">
+  </ion-nav-buttons>
+  <ion-content class="padding">
+    <ion-list>
+      <ion-item class="item item-text-wrap" style="color:red" ng-if="vm.error">
+        {{ vm.error }}
+      </ion-item>
+      <ion-item class="item energized" ng-click="vm.showLocallyModifiedInfo()" ng-if="vm.project.deviceModified(vm.cloudDevice.slug)">
+        Local Modifications (click for details)
+      </ion-item>
+      <device-label-item></device-label-item>
+      <report-progress-indicator></report-progress-indicator>
+      <rssi></rssi>
+      <ion-item class="item item-divider">
+        Current Value
+      </ion-item>
+      <ion-item class="item" ng-repeat="streamId in vm.realtimeStreams"
+                ng-if="vm.variables[streamId] && !vm.variables[streamId].webOnly">
+        {{ ::vm.variables[streamId].name }}
+        <small ng-if="vm.streams[streamId].dataLabel">({{ vm.streams[streamId].dataLabel }})</small>
+        <span class="badge badge-positive">
+            {{ vm.lastValue(streamId) }} <span ng-if="(vm.lastValue(streamId) !== 'Waiting...')">{{ vm.getUnits(streamId) }}</span>
+        </span>
+      </ion-item>
+      <ion-item class="item item-divider">
+        Last Event Summary 
+      </ion-item>
+      <ion-item class="item" ng-repeat="streamId in vm.eventStreams"
+                    ng-if="vm.variables[streamId] && !vm.variables[streamId].webOnly">
+        {{ ::vm.variables[streamId].name }}
+        <small ng-if="vm.streams[streamId].dataLabel">({{ vm.streams[streamId].dataLabel }})</small>
+        <span class="badge badge-positive">
+            {{ vm.lastValue(streamId) }} <span ng-if="(vm.lastValue(streamId) !== 'Waiting...')">{{ vm.getUnits(streamId) }}</span>
+        </span>
+       </ion-item>
+    </ion-list>
+  </ion-content>
+  <ion-footer-bar align-title="center" class="bar-positive">
+    <div class="buttons">
+    </div>
+    <h1 class="title">
+      <upload-logs-button></upload-logs-button>
+    </h1>
+    <div class="buttons">
+      <button class="button" ng-click="vm.showSettings()">
+      <i class="icon ion-settings"></i>
+    </button>
+    </div>
+  </ion-footer-bar>
+</ion-view>

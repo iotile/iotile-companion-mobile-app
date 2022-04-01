@@ -1,0 +1,25 @@
+<ion-view view-title="Set Shock Threshold">
+        <ion-content>
+          <div class="item item-icon-left item-assertive item-text-wrap" ng-if="vm.error">
+            <i class="icon ion-alert-circled"></i>
+            <p style="color: white;"><b>{{ vm.error }}</b></p>
+          </div>
+          <ion-list>
+            <ion-item class="item item-divider" ng-if="!vm.error">
+              Device {{vm.deviceSlug}}
+            </ion-item>
+            <ion-item class="item item-icon-right">
+              <b>Current Threshold: </b><span ng-if="vm.shockThreshold">{{ vm.shockThreshold }}</span>
+            </ion-item>
+            <!--  -->
+            <label class="item item-input item-stacked-label">
+                <span class="input-label"><b>New Threshold:</b></span>
+                <input type="number" placeholder="<shock threshold in Gs - minimum: 0.6>" name="newThreshold" class="form-control" ng-model="vm.newThreshold" ng-min="0.6" required>
+              </label>
+            <!--  -->
+            <ion-item class="item text-center">
+                <button ng-disabled="!vm.newThreshold || vm.newThreshold < 0.6" class="button button-balanced" ng-click="vm.updateThreshold()">Set New Threshold</button>
+            </ion-item>
+          </ion-list>
+        </ion-content>
+      </ion-view>

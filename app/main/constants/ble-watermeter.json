@@ -1,0 +1,14 @@
+{  
+  "MOCK_BLE": true,
+  "MOCK_BLE_DEVICE": "Android",
+  "ARCH_BLE_COMPANY_ID": 960,
+  "MOCK_BLE_DEVICES":
+  {
+  	"9c":
+  	{
+  		"type": "nfc300"
+  	}
+  },
+
+  "MOCK_BLE_SCAN_DELAY": 500
+}

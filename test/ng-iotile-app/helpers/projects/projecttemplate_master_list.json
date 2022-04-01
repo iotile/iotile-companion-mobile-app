@@ -1,0 +1,87 @@
+[
+    {
+        "id": 2,
+        "name": "Default Template",
+        "slug": "default-template-v1-0-0",
+        "org": "arch-systems",
+        "version": "v1.0.0",
+        "extra_data": {
+            "web": {
+                "projectTemplateSlug": "default"
+            },
+            "mobile": {
+                "waveform": false,
+                "projectTemplateSlug": "default"
+            }
+        },
+        "created_on": "2017-01-22T22:50:24.512275Z"
+    },
+    {
+        "id": 10,
+        "name": "Factory Template",
+        "slug": "factory-template-v1-0-0",
+        "org": "arch-systems",
+        "version": "v1.0.0",
+        "extra_data": {
+            "web": {
+                "configAttributeName": ":report:manufacturing:sewing:general",
+                "projectTemplateSlug": "factory"
+            },
+            "mobile": {
+                "waveform": false,
+                "projectTemplateSlug": "factory"
+            }
+        },
+        "created_on": "2018-05-22T21:22:15.946050Z"
+    },
+    {
+        "id": 8,
+        "name": "Shipping Template",
+        "slug": "shipping-template-v1-0-0",
+        "org": "arch-systems",
+        "version": "v1.0.0",
+        "extra_data": {
+            "web": {
+                "projectTemplateSlug": "shipping"
+            },
+            "mobile": {
+                "waveform": true,
+                "projectTemplateSlug": "shipping"
+            }
+        },
+        "created_on": "2017-08-31T01:52:39.851213Z"
+    },
+    {
+        "id": 9,
+        "name": "Simple Template",
+        "slug": "simple-template-v1-0-0",
+        "org": "arch-systems",
+        "version": "v1.0.0",
+        "extra_data": {
+            "web": {
+                "projectTemplateSlug": "simple"
+            },
+            "mobile": {
+                "waveform": false,
+                "projectTemplateSlug": "simple"
+            }
+        },
+        "created_on": "2017-09-04T23:45:16.642470Z"
+    },
+    {
+        "id": 7,
+        "name": "Water Meter",
+        "slug": "water-meter-v1-1-0",
+        "org": "arch-systems",
+        "version": "v1.1.0",
+        "extra_data": {
+            "web": {
+                "projectTemplateSlug": "default"
+            },
+            "mobile": {
+                "waveform": false
+            }
+        },
+        "created_on": "2017-03-17T06:15:44.410131Z"
+    }
+]

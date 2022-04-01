@@ -1,0 +1,43 @@
+<ion-modal-view class="">
+  <div>
+    <ion-header-bar class="bar-positive">
+      <h1 class="title">{{ vm.name }}</h1>
+    </ion-header-bar>
+    <ion-content>
+      <ion-list>
+        <ion-item class="item item-divider">
+          {{vm.modalService.name}} Status
+        </ion-item>
+        <ion-item class="item item-icon-right">
+            {{ vm.modalService.userStatus }}
+            <i class="icon ion-checkmark-round balanced" ng-if="vm.modalService.icon === 'GOOD'"></i>
+            <i class="icon ion-alert-circled assertive" ng-if="vm.modalService.icon === 'BAD'"></i>
+            <i class="icon ion-help-circled energized" ng-if="vm.modalService.icon === 'UNKNOWN'"></i>
+        </ion-item>
+        <ion-item class="item item-divider">
+          Messages
+        </ion-item>
+        <ion-item class="item item-icon-right" ng-repeat="message in vm.modalService.messages" ng-if="vm.modalServiceMessages">
+          {{ message.message }}<br/>
+          last updated: {{ message.niceAge }}
+          <span ng-class="message.badgeClass">{{ message.badgeContents }}</span>
+        </ion-item>
+        <ion-item class="item" ng-if="!vm.modalServiceMessages">
+          Loading messages...
+        </ion-item>
+        <ion-item class="item" ng-if="vm.modalServiceMessages && vm.modalService.messages.length === 0">
+          No messages
+        </ion-item>
+      </ion-list>
+    </ion-content>
+    <ion-footer-bar align-title="center" class="bar-positive">
+      <div class="buttons">
+        <button class="button" ng-click="vm.hideModal()">Close</button>
+      </div>
+      <h1 class="title"></h1>
+      <div class="buttons">
+        <button disabled class="button">Repair</button>
+      </div>
+    </ion-footer-bar>
+    </div>
+</ion-modal-view>

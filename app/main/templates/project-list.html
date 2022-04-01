@@ -1,0 +1,46 @@
+<ion-view view-title="Projects">
+  <ion-nav-buttons side="right">
+    <logs-button></logs-button>
+  </ion-nav-buttons>
+  <ion-content>
+    <ion-list>
+      <ion-item class="item-remove-animate item-avatar" type="item-text-wrap">
+        <img src="main/assets/images/iotile@2x.png">
+        <h2>{{ vm.name }}<b ng-if="!vm.cloud.isDefault()"> - {{ vm.cloud.server.longName }}</b></h2>
+        <p>v{{ vm.version }}</p>
+      </ion-item>
+      <ion-item class="item" style="color:red;" ng-if="vm.error">
+        <p><b>{{ vm.error }}</b></p>
+      </ion-item>
+    </ion-list>
+    <ion-list ng-repeat="org in vm.orgs">
+      <ion-item class="item item-divider">
+        <b>{{ org.name }}</b>
+      </ion-item>
+
+      <ion-item class="item-icon-right" ng-repeat="project in org.projects"
+                ng-click="vm.onSelectProject(project.id)">
+        <h2>{{ project.name }}</h2>
+        <i class="icon ion-ios-checkmark" ng-if="vm.activeProject && project.id === vm.activeProject.id"></i>
+      </ion-item>
+    </ion-list>
+    <ion-list ng-if="vm.noDevices">
+      <div class="card">
+        <div class="item item-text-wrap text-center">
+          <h2>Welcome to the IOTile Mobile App!</h2><br/>
+        <p>Click below to setup your account and device.</p><br/>
+        <button ng-click="vm.setupNewDevice()" class="button button-positive">Setup New Device</button>
+        </div>
+      </div>
+    </ion-list>
+  </ion-content>
+  <ion-footer-bar align-title="center" class="bar-positive">
+    <div class="buttons">
+    </div>
+    <h1 class="title">
+      <button style="margin-top:4px; border-color: #015083" ng-disabled="!vm.net.isOnline()" ng-click="vm.fetchAll()" class="button button-royal">
+          <i class="icon ion-ios-cloud-download"></i> <b>Sync Cloud</b>
+      </button>
+    </h1>
+  </ion-footer-bar>
+</ion-view>

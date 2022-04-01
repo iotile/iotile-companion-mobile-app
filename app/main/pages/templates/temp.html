@@ -1,0 +1,47 @@
+<ion-view view-title="Temperature">
+  <ion-nav-buttons side="right">
+  </ion-nav-buttons>
+  <ion-content class="padding">
+    <ion-list>
+      <ion-item class="item item-text-wrap" style="color:red" ng-if="vm.error">
+        {{ vm.error }}
+      </ion-item>
+      <ion-item class="item energized" ng-click="vm.showLocallyModifiedInfo()" ng-if="vm.project.deviceModified(vm.cloudDevice.slug)">
+        Local Modifications (click for details)
+      </ion-item>
+      <device-label-item></device-label-item>
+      <report-progress-indicator></report-progress-indicator>
+
+      <ion-item class="item" ng-repeat="streamId in vm.allStreamIDs"
+                ng-if="vm.variables[streamId] && !vm.variables[streamId].webOnly">
+        <div class="row">
+          <a style="width: 100%">
+            <div class="col">
+              <div style="min-height:80%; min-width: 100%" class="card padding">
+                <div class="text-center">
+                    {{ ::vm.variables[streamId].name }}
+                </div><br/>
+                <div style="font-size:36px; margin-bottom:12px" class="text-center">
+                  {{ vm.lastValue(streamId) }} <span ng-if="(vm.lastValue(streamId) !== 'Waiting...')">{{ vm.getUnits(streamId) }}</span>
+                </div>
+                <br/>
+              </div>
+            </div>
+          </a>
+        </div>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+  <ion-footer-bar align-title="center" class="bar-positive">
+    <div class="buttons">
+    </div>
+    <h1 class="title">
+      <upload-logs-button></upload-logs-button>
+    </h1>
+    <div class="buttons">
+      <button class="button" ng-click="vm.showSettings()">
+      <i class="icon ion-settings"></i>
+    </button>
+    </div>
+  </ion-footer-bar>
+</ion-view>

@@ -1,0 +1,39 @@
+# temp files
+.DS_Store
+.tmp
+.sass-cache
+
+# npm
+/node_modules/
+
+# cordova
+/platforms/
+/plugins/
+/hooks/
+/res/*/current/
+/media/out/
+
+# build folder
+/www/**
+/build
+
+# Release Files
+*.apk
+*.keystore
+
+# IDE
+*.sublime-project
+*.sublime-workspace
+.idea/
+.vscode/
+jsconfig.json
+
+# Code test and coverage results
+/coverage/
+karma-test-results.xml
+
+build/*
+dist/
+
+codeship-env.txt
+codeship.aes

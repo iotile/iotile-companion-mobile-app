@@ -1,0 +1,23 @@
+<ion-modal-view class="">
+  <div>
+    <ion-header-bar class="bar-positive">
+      <h1 class="title">Log Info</h1>
+    </ion-header-bar>
+    <ion-content>
+      <ion-list>
+        <ion-item class="item item-text-wrap">
+          {{vm.log.message}}
+        </ion-item>
+        <ion-item class="item item-text-wrap" ng-repeat="(key, value) in vm.log.sentry">
+          <h3>{{ key }}</h3>
+          <pre>{{ value }}</pre>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+    <ion-footer-bar align-title="center" class="bar-positive">
+      <div class="button-bar">
+        <button ng-click="vm.remove()" class="button button-positive">Close</button>
+      </div>
+    </ion-footer-bar>
+  </div>
+</ion-modal-view>

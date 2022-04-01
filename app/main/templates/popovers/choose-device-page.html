@@ -1,0 +1,13 @@
+<ion-popover-view>
+    <ion-header-bar>
+        <h1 class="title">Choose Device Page</h1>
+    </ion-header-bar>
+    <ion-content>
+        <ion-list>
+            <ion-item class="item item-icon-right" ng-repeat="page in vm.selectedDevice.pageChoices" ng-click="vm.devicePagePopover.hide(); vm.devicePagePopover = null; vm.onConnect(vm.selectedDevice.slug, page);">
+                {{ page.label }}
+                <i class="icon ion-chevron-right"></i>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-popover-view>

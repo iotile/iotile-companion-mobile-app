@@ -1,0 +1,56 @@
+<ion-view view-title="IOTile Data">
+  <ion-nav-buttons side="right">
+    <logs-button></logs-button>
+  </ion-nav-buttons>
+  <ion-content class="padding">
+    <ion-list>
+      <ion-item class="item item-text-wrap" style="color:red" ng-if="vm.error">
+        {{ vm.error }}
+      </ion-item>
+      <ion-item class="item energized" ng-click="vm.showLocallyModifiedInfo()" ng-if="vm.project.deviceModified(vm.cloudDevice.slug)">
+        Local Modifications (click for details)
+      </ion-item>
+      <device-label-item></device-label-item>
+      <report-progress-indicator></report-progress-indicator>
+      <rssi></rssi>
+      <ion-item class="item item-divider">
+        Gateway Services (click for details)
+      </ion-item>
+      <ion-item class="item item-icon-right" ng-repeat="service in vm.services" ng-click="vm.showServiceModal(service)">
+        <div>
+          <span style="float:left">{{ service.name }}</span><br/>
+          <i class="icon ion-checkmark-round balanced" ng-if="service.icon === 'GOOD'"></i>
+          <i class="icon ion-alert-circled assertive" ng-if="service.icon === 'BAD'"></i>
+          <i class="icon ion-help-circled energized" ng-if="service.icon === 'UNKNOWN'"></i>
+        </div>
+        <div ng-if="service.headline" class="padding-top">
+          {{ service.headline.message }}<br/>
+          last change: {{ service.headline.niceAge }}
+        </div>
+      </ion-item>
+      <ion-item class="item item-divider">
+        Configure Connectivity
+      </ion-item>
+      <ion-item class="item item-icon-right" ng-repeat="iface in vm.interfaces" ng-click="vm.showConfigureInterfaceModal(iface)">
+        <div>
+            {{ iface.name }}
+        </div>
+        <div class="padding-top">
+          {{ iface.connectionStatus }} <br/>
+          {{ iface.ipStatus }}
+        </div>
+        <i class="icon ion-settings"></i>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+  <ion-footer-bar align-title="center" class="bar-positive">
+    <div class="buttons">
+    </div>
+    <h1 class="title"></h1>
+    <div class="buttons">
+      <button class="button" ng-click="vm.showSettings()">
+      <i class="icon ion-settings"></i>
+    </button>
+    </div>
+  </ion-footer-bar>
+</ion-view>

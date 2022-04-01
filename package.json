@@ -1,0 +1,143 @@
+{
+  "name": "iotile-mobile",
+  "version": "4.3.3",
+  "private": true,
+  "engines": {
+    "node": ">=4.0.0"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/karma start ./karma.conf.js",
+    "test:debug": "./node_modules/.bin/karma start ./karma.conf.js --single-run=false",
+    "lint": "tslint './test/**/*.ts' && tslint './app/**/*.ts'",
+    "lint-fix": "tslint --fix './test/**/*.ts' && tslint --fix './app/**/*.ts'",
+    "tslint-check": "tslint-config-prettier-check ./tslint.json",
+    "watch": "./node_modules/.bin/webpack-dev-server --content-base www",
+    "build": "webpack --env prod",
+    "build-android": "npm run build && cordova build android",
+    "android": "npm run build && cordova run android",
+    "android-stage": "webpack --env stage && cordova run android",
+    "build-ios": "npm run build && cordova build ios -- --buildFlag='-UseModernBuildSystem=0'",
+    "prepare-ios": "npm run build && cordova prepare ios -- --buildFlag='-UseModernBuildSystem=0'",
+    "ios": "npm run build && cordova run ios -- --buildFlag='-UseModernBuildSystem=0'"
+  },
+  "devDependencies": {
+    "@types/angular": "~1.5.11",
+    "@types/angular-mocks": "^1.5.10",
+    "@types/crypto-js": "^3.1.29",
+    "@types/ionic": "0.0.34",
+    "@types/jasmine": "^2.5.53",
+    "@types/jquery": "^3.2.10",
+    "@types/lodash": "^4.14.121",
+    "@types/msgpack-lite": "^0.1.6",
+    "@types/node": "^9.3.0",
+    "angular-mocks": "~1.5.10",
+    "axios-mock-adapter": "^1.15.0",
+    "clean-webpack-plugin": "^0.1.16",
+    "copy-webpack-plugin": "^4.0.1",
+    "css-loader": "^0.28.4",
+    "elementtree": "^0.1.7",
+    "extract-text-webpack-plugin": "^3.0.0",
+    "file-loader": "^0.11.2",
+    "html-loader": "^0.4.5",
+    "html-webpack-plugin": "^2.29.0",
+    "husky": "^1.3.1",
+    "jasmine-core": "^2.7.0",
+    "karma": "^1.1.0",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-coverage": "^1.1.1",
+    "karma-jasmine": "^1.0.2",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-spec-reporter": "0.0.26",
+    "karma-webpack": "=2.0.4",
+    "ng-annotate": "^1.2.2",
+    "ng-annotate-loader": "^0.6.1",
+    "node-sass": "^4.9.2",
+    "plist": "^2.1.0",
+    "prettier": "1.16.4",
+    "readline-sync": "^1.4.9",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.18.2",
+    "ts-loader": "^2.3.1",
+    "tslint": "^5.11.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-loader": "^3.5.3",
+    "tslint-plugin-prettier": "^2.0.1",
+    "typescript": "^2.9.2",
+    "url-loader": "^0.5.9",
+    "webpack": "^3.3.0",
+    "webpack-dev-server": "^2.5.1",
+    "webpack-merge": "^4.1.0",
+    "xml2js": "^0.4.17"
+  },
+  "dependencies": {
+    "@iotile/iotile-cloud": "0.2.1",
+    "@iotile/iotile-common": "0.1.0",
+    "@iotile/iotile-device": "0.2.2",
+    "android-versions": "^1.4.0",
+    "angular": "~1.5.11",
+    "angular-animate": "~1.5.11",
+    "angular-sanitize": "~1.5.11",
+    "angular-ui-router": "^0.2.13",
+    "axios": "^0.18.0",
+    "cordova-android": "^7.0.0",
+    "cordova-ios": "^4.4.0",
+    "cordova-plugin-add-swift-support": "^1.7.2",
+    "cordova-plugin-ble-central-iotile-fork": "^1.2.3-rc.1",
+    "cordova-plugin-camera": "^2.4.1",
+    "cordova-plugin-compat": "^1.2.0",
+    "cordova-plugin-device": "~1.1.2",
+    "cordova-plugin-file": "^5.0.0",
+    "cordova-plugin-file-transfer": "^1.7.1",
+    "cordova-plugin-geolocation": "^2.4.3",
+    "cordova-plugin-inappbrowser": "^1.4.0",
+    "cordova-plugin-insomnia": "^4.3.0",
+    "cordova-plugin-ionic-webview": "^1.1.16",
+    "cordova-plugin-network-information": "^1.2.1",
+    "cordova-plugin-splashscreen": "^4.0.3",
+    "cordova-plugin-websocket-server": "^1.4.10",
+    "cordova-plugin-whitelist": "^1.3.2",
+    "crc_32_ts": "^1.0.13",
+    "crypto-js": "^3.1.9-1",
+    "ionic-angular": "=1.3.5",
+    "lodash": "^4.17.11",
+    "lodash.merge": "^4.6.1",
+    "moment": "^2.20.1",
+    "msgpack-lite": "^0.1.26",
+    "ng-cordova": "^0.1.27-alpha",
+    "raven-js": "^3.17.0",
+    "typescript-logging": "^0.6.3"
+  },
+  "cordova": {
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "plugins": {
+      "cordova-plugin-device": {},
+      "cordova-plugin-geolocation": {
+        "GEOLOCATION_USAGE_DESCRIPTION": " "
+      },
+      "cordova-plugin-inappbrowser": {},
+      "cordova-plugin-network-information": {},
+      "cordova-plugin-splashscreen": {},
+      "cordova-plugin-insomnia": {},
+      "cordova-plugin-whitelist": {},
+      "cordova-plugin-ionic-webview": {},
+      "cordova-plugin-camera": {
+        "CAMERA_USAGE_DESCRIPTION": " ",
+        "PHOTOLIBRARY_USAGE_DESCRIPTION": " "
+      },
+      "cordova-plugin-file": {},
+      "cordova-plugin-websocket-server": {},
+      "cordova-plugin-file-transfer": {},
+      "cordova-plugin-ble-central-iotile-fork": {
+        "BLUETOOTH_USAGE_DESCRIPTION": " "
+      }
+    }
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm run lint"
+    }
+  }
+}

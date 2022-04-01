@@ -1,0 +1,70 @@
+<ion-view>
+  <ion-nav-title>{{ vm.varName }}</ion-nav-title>
+  <ion-nav-bar class="bar-positive">
+  </ion-nav-bar>
+  <ion-content>
+    <div>
+      <form name="form" novalidate>
+        <div class="list">
+          <div class="item item-icon-left item-assertive item-text-wrap" ng-if="vm.error">
+            <i class="icon ion-alert-circled"></i>
+            <p style="color: white;"><b>{{ vm.error }}</b></p>
+          </div>
+          <div class="card">
+            <div class="item item-divider item-icon-left">
+              <i class="icon ion-pricetag"></i>
+              <label class="item item-input"
+                     style="padding: 0 15px;">
+                <ngIf='vm.labelPrefix'>{{ vm.labelPrefix }}: </ngIf>
+                <input type="text"
+                       ng-model="vm.dataLabel"
+                       name="dataLabel"
+                       ng-maxlength="50"
+                       style="display: inline-block; padding-bottom: 2px"
+                       placeholder="Enter Data Label" />
+              </label>
+            </div>
+            <label class="item" ng-show="form.dataLabel.$error.maxlength">Max Length is 50 characters</label>   
+          </div>
+          <label class="item item-divider">Meter Settings</label>
+          <label class="item item-select">
+              <span class="input-label">Meter Units:</span>
+              <select ng-model="vm.inputUnitSlug" required="required"
+                      ng-options="type.slug as type.fullName for type in vm.vartype.availableInputUnits">
+              </select>
+            </label>
+          <label class="item item-input">
+            <span class="input-label">Units / Pulse</span>
+            <input style="text-align: right;" type="number" name="factor-upp" class="form-control"
+                   ng-model="vm.factor.upp" ng-change="vm.factorChanged('UPP')" required>
+          </label>
+          <label class="item item-input">
+            <span class="input-label">Pulses / Unit</span>
+            <input style="text-align: right;" type="number" name="factor-ppu" class="form-control"
+                   ng-model="vm.factor.ppu" ng-change="vm.factorChanged('PPU')" required>
+          </label>
+          <label class="item item-divider">Display Settings</label>
+          <label class="item item-select">
+            <span class="input-label">Volume Units:</span>
+            <select ng-model="vm.outputUnitSlug" required="required"
+                    ng-options="type.slug as type.fullName for type in vm.vartype.availableOutputUnits">
+            </select>
+          </label>
+          <label class="item item-select">
+            <span class="input-label">Flow Units:</span>
+            <select ng-model="vm.flowOutputUnitSlug" required="required"
+                    ng-options="type.slug as type.fullName for type in vm.flowVarType.availableOutputUnits">
+            </select>
+          </label>
+        </div>
+      </form>
+    </div>
+  </ion-content>
+  <walkthrough-footer ng-if="vm.walkthroughActive()" callback="vm.saveClick()"></walkthrough-footer>
+  <ion-footer-bar ng-if="!vm.walkthroughActive()" align-title="center" class="bar-positive">
+    <div class="button-bar">
+      <a ng-click="vm.cancelClick()" class="button button-assertive icon-left ion-close-circled">Cancel</a>
+      <a ng-click="vm.saveClick()" class="button button-balanced icon-left ion-checkmark-round">Save</a>
+    </div>
+  </ion-footer-bar>
+</ion-view>

@@ -1,0 +1,68 @@
+<ion-view> 
+  <ion-nav-title>{{ vm.title }}</ion-nav-title>
+  <ion-nav-buttons side="right">
+  </ion-nav-buttons>
+  <!-- do you want padding? -->
+  <ion-content class="padding">
+    <ion-list>
+      <ion-item class="item item-text-wrap" style="color:red" ng-if="vm.error">
+        {{ vm.error }}
+      </ion-item>
+      <ion-item class="item energized" ng-click="vm.showLocallyModifiedInfo()" ng-if="vm.project.deviceModified(vm.cloudDevice.slug)">
+        Local Modifications (click for details)
+      </ion-item>
+      <device-label-item></device-label-item>
+      <report-progress-indicator></report-progress-indicator>
+      <ion-item class="item" ng-repeat="lid in vm.ioInfo.order">
+        <div class="row">
+          <h2>{{ ::vm.ioInfo.map[lid].label }} <span ng-if="vm.streams[vm.buildStreamID(lid)].dataLabel">({{ vm.streams[vm.buildStreamID(lid)].dataLabel }})</span></h1>
+        </div>
+        <div class="row">
+          <a style="width: 50%">
+            <div class="col">
+              <div style="min-height:80%; min-width: 50%" class="card padding">
+                <div class="text-center">{{ ::vm.ioInfo.map[lid].derived.flow.label }}</div><br/>
+                <div style="margin-bottom:12px" class="text-center">
+                  <span style="font-size:28px">{{ vm.lastValue(vm.ioInfo.map[lid].derived.flow.lid) }}</span>
+                  <br/>
+                  <span> {{ vm.getUnits(vm.ioInfo.map[lid].derived.flow.lid, true) }}</span>
+                </div>
+                <br/>
+                <i class="icon ion-waterdrop"></i>
+              </div>
+            </div>
+          </a>
+          <a style="width: 50%">
+            <div class="col">
+              <div style="min-height:80%; min-width: 50%" class="card padding">
+                <div class="text-center">{{ ::vm.ioInfo.map[lid].derived.odometer.label }}</div><br/>
+                <div style="margin-bottom:12px" class="text-center">
+                  <span style="font-size:24px">{{ vm.lastValue(vm.ioInfo.map[lid].derived.odometer.lid) }}</span>
+                  <br/>
+                  <span>{{ vm.getUnits(vm.ioInfo.map[lid].derived.odometer.lid, true) }}</span>
+                </div>
+                <br/>
+                <i class="icon ion-paintbucket"></i>
+                <button style="float:right; margin-top:-10px" class="button button-small button-assertive"
+                        ng-click="vm.resetWidget(lid)"
+                        ion-stop-event="click">
+                   Reset
+                </button>
+              </div>
+            </div>
+          </a>
+        </div>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+  <ion-footer-bar align-title="center" class="bar-positive">
+    <h1 class="title">
+      <upload-logs-button></upload-logs-button>
+    </h1>
+    <div class="buttons">
+      <button class="button" ng-click="vm.showSettings()">
+      <i class="icon ion-settings"></i>
+    </button>
+    </div>
+  </ion-footer-bar>
+</ion-view>

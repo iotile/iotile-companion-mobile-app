@@ -1,0 +1,34 @@
+<ion-view view-title="Setup a New Device">
+  <ion-content>
+    <div class="item item-icon-left item-assertive item-text-wrap" ng-if="vm.error">
+      <i class="icon ion-alert-circled"></i>
+      <p style="color: white;"><b>{{ vm.error }}</b></p>
+    </div>
+    <ion-refresher
+       pulling-text="Pull to refresh..."
+       on-refresh="vm.onRefresh()">
+    </ion-refresher>
+      <ion-item class="item item" style="color:red" ng-if="vm.msg">
+        {{ vm.msg }}
+      </ion-item>
+      <ion-item class="item-msg item text-center" ng-if="vm.scanning">
+        <h2>Scanning...</h2><br/>
+        <ion-spinner icon="ripple" class="spinner-positive"></ion-spinner>
+      </ion-item>
+
+      <ion-item class="item item-icon-left item-icon-right"
+                ng-repeat="device in vm.devices | orderBy:'slug'"
+                type="item-text-wrap"
+                ng-click="vm.onSelectDevice(device)"
+                ng-if="vm.isClaimable(device.slug)">
+                <!-- href="#/main/ble/{{device.bleDeviceId}}"> -->
+        <low-voltage-indicator ng-model="device"></low-voltage-indicator>
+        <h2>New Device</h2>
+        <p>{{ device.slug }}</p>
+        <i ng-if="!vm.alreadyConnected(device)" class="icon ion-wifi positive"></i>
+        <i ng-if="vm.alreadyConnected(device)" class="icon ion-close assertive"></i>
+      </ion-item>
+
+    </ion-list>
+  </ion-content>
+</ion-view>

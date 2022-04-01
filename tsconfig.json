@@ -1,0 +1,25 @@
+{
+	"compilerOptions": {
+		"target": "ES5",
+		"watch": false,
+		"allowJs": true,
+		"outDir": "./build",
+		"allowUnreachableCode":  true,
+		"sourceMap": true,
+		"lib": ["dom", "es2015.promise", "es2015.iterable", "es5", "es6", "es2017.sharedmemory"],
+		"baseUrl": ".",
+		"paths": {
+			"*": [
+				"app/packages/*",
+				"node_modules/*"
+			]
+		},
+		"experimentalDecorators": true		
+	},
+
+	"include": [
+		"app/**/*",
+		"test/**/*",
+		"typings/**/*"
+	]
+}

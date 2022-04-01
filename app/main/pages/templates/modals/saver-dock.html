@@ -1,0 +1,99 @@
+<ion-modal-view class="">
+  <div>
+    <ion-header-bar class="bar-positive">
+      <h1 class="title">Saver Dock</h1>
+    </ion-header-bar>
+    <ion-content>
+      <div class="card">
+        <div class="item item-divider">
+            Status
+        </div>
+        <div class="item item-text-wrap" style="color:red" ng-if="vm.error">
+          {{ vm.error }}
+        </div>
+        <div class="item item-text-wrap">
+          <div>
+            {{ vm.status }} <button class="button button-small button-positive balanced" style="float: right" ng-disabled="vm.busy" ng-click="vm.scanForSaver()">Rescan</button>
+          </div>
+          <div style="clear: both"></div>
+        </div>
+      </div>
+      <div class="list card" ng-if="vm.uploadInfo.inProgress">
+        <div class="item item-divider">
+            Upload Progress
+        </div>
+        <div class="item">
+          IOTile ID: {{ vm.uploadInfo.saverID || "Checking..." }}
+        </div>
+        <div class="item">
+          Current Task: {{ vm.uploadInfo.progress.task || "Starting..." }}
+        </div>
+        <div ng-show="vm.uploadInfo.progress.task && vm.uploadInfo.progress.total > 1" class="item">
+          Progress: {{ vm.uploadInfo.progress.finished }} / {{ vm.uploadInfo.progress.total }}
+        </div>
+        <div class="item item-divider">
+          <div>
+            <div class="buttons">
+              <button class="button button-small button-positive balanced" style="float: right" ng-click="vm.closeUploadCard()">Hide</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="list card" ng-if="vm.setupInfo.inProgress">
+        <div class="item item-divider">
+            Saver Setup
+        </div>
+        <div class="item">
+          Choose Template: <span ng-if="!vm.setupInfo.templatesLoaded">Loading...</span>
+          <br/>
+          <select style="width: 80%" ng-model="vm.setupInfo.selectedTemplate" required="required"
+                  ng-options="template for template in vm.setupInfo.templates" ng-if="vm.setupInfo.templatesLoaded">
+          </select>
+        </div>
+        <div class="item item-divider">
+          <div>
+            <div class="buttons">
+                <button ng-disabled="vm.setupInfo.selectedTemplate == null || vm.setupInfo.programming" class="button button-small button-positive balanced" style="float: left" ng-click="vm.programSaver()">Program</button>
+              </div>
+            <div class="buttons">
+              <button class="button button-small button-positive balanced" style="float: right" ng-click="vm.closeSetupCard()">Hide</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="list card" ng-if="vm.saverInfo">
+        <div class="item item-divider">
+            Attached Saver Info
+        </div>
+        <div class="item item-text-wrap">
+          Saver Serial: {{ vm.saverInfo.serialNumber }} <br />
+          To: {{ vm.saverInfo.toField }} <br />
+          From: {{ vm.saverInfo.fromField }}
+        </div>
+        <div class="item">
+          Stored Timer Readings: {{ vm.saverInfo.timerEvents }} / {{ vm.saverInfo.totalTimerSpace }} <br />
+          Stored Signal Readings: {{ vm.saverInfo.signalEvents }} / {{ vm.saverInfo.totalSignalSpace }} 
+        </div>
+        <div class="item item-divider">
+          <div>
+            <div class="buttons">
+              <button ng-disabled="vm.setupInfo.inProgress || vm.uploadInfo.inProgress" class="button button-small button-positive balanced" style="float: left" ng-click="vm.showSetupCard()">Setup</button>
+            </div>
+            <div class="buttons">
+              <button ng-disabled="vm.setupInfo.inProgress || vm.uploadInfo.inProgress" class="button button-small button-positive balanced" style="float: right" ng-click="vm.uploadSaver()">Upload</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ion-content>
+    <ion-footer-bar align-title="center" class="bar-positive">
+      <div class="buttons">
+        <button class="button" ng-click="vm.hide()">Close</button>
+      </div>
+      <h1 class="title"></h1>
+      <div class="buttons">
+        <button disabled class="button">Repair</button>
+      </div>
+    </ion-footer-bar>
+    </div>
+</ion-modal-view>

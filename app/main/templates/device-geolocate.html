@@ -1,0 +1,35 @@
+<ion-view view-title="Device Location">
+  <ion-nav-bar class="bar-positive">
+  </ion-nav-bar>
+  <ion-content>
+    <div class="item item-icon-left item-assertive item-text-wrap" ng-if="vm.error">
+      <i class="icon ion-alert-circled"></i>
+      <p style="color: white;"><b>{{ vm.error }}</b></p>
+    </div>
+    <ion-list>
+        <ion-item class="item item-divider">
+          Capture your current location 
+        </ion-item>
+        <ion-item class="item item-note item-text-wrap">
+            <p>Click to save your device's current GPS location.  This step is optional but it will help you remember where your device is
+            located in the future.</p><br/>
+            <p>You can modify it later if you move your device.</p>
+        </ion-item>
+        <ion-item class="item text-center">
+        <a ng-click="vm.captureLocation()" class="button button-full button-calm icon-left ion-arrow-shrink">Get Location</a>
+        </ion-item>
+        <ion-item ng-if="vm.hasLocation">
+            <h2>Device Location</h2>
+            <p>{{ vm.niceLongitude }}</p>
+            <p>{{ vm.niceLatitude}}</p>
+        </ion-item>
+    </ion-list>
+  </ion-content>
+  <walkthrough-footer ng-if="vm.walkthroughActive()" callback="vm.saveClick()"></walkthrough-footer>
+  <ion-footer-bar ng-if="!vm.walkthroughActive()" align-title="center" class="bar-positive">
+    <div class="button-bar">
+      <a ng-click="vm.cancelClick()" class="button button-assertive icon-left ion-close-circled">Cancel</a>
+      <a ng-click="vm.saveClick()" ng-enabled="vm.hasLocation" class="button button-balanced icon-left ion-checkmark-round">Save</a>
+    </div>
+  </ion-footer-bar>
+</ion-view>

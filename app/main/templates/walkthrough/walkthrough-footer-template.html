@@ -1,0 +1,13 @@
+<ion-footer-bar align-title="center" class="bar-positive">
+  <div class="button-bar">
+    <a ng-if="!backHide" ng-click="back()" ng-disabled="check()" class="{{ backClass }}">
+      {{ backName }}
+    </a>
+    <a ng-if="!exitHide" ng-click="exit()" ng-disabled="exitDisabled" class="{{ exitClass }}">
+      {{ exitName }}
+    </a>
+    <a ng-if="!nextHide" ng-click="next()" ng-disabled="nextDisabled" class="{{ nextClass }}">
+      {{ nextName}}
+    </a>
+  </div>
+</ion-footer-bar>

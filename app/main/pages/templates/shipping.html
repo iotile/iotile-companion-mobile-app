@@ -1,0 +1,182 @@
+<ion-view view-title="">
+    <ion-nav-buttons side="right">
+    </ion-nav-buttons>
+    <ion-content class="padding">
+      <ion-list>
+        <ion-item class="item item-text-wrap" style="color:red" ng-if="vm.error">
+          {{ vm.error }}
+        </ion-item>
+        <ion-item ng-if="vm.project.deviceModified(vm.cloudDevice.slug)" class="item energized" ng-click="vm.showLocallyModifiedInfo()">
+          Local Modifications (click for details)
+        </ion-item>
+        <device-label-item></device-label-item>
+      <!-- START button -->
+      <ion-item ng-if="vm.tripInfo.tripState === vm.TRIP_STATE.NOT_STARTED" class="item text-center">
+          <div class="button button-full button-positive" ng-click="vm.startTrip()">
+            Start Trip
+          </div>
+      </ion-item>
+      <!-- Waveform Memory Full Warning -->
+      <ion-item ng-if="vm.tripInfo.waveformMaxReached">
+        <a ng-click="vm.memoryPopup()" class="item item-icon-left item-icon-right" style="background: #ffbc00; color: white;">
+          <i class="icon ion-android-warning"></i><h2 style="color: white;"> Device is Full</h2>
+          <i class="icon ion-ios-help-outline"></i>
+        </a>
+        </ion-item>
+      <!-- Trip Status Information -->
+      <div ng-if="vm.tripInfo.tripState !== vm.TRIP_STATE.NOT_STARTED">
+        <ion-item class="item">
+          Device Status: 
+            <span class="badge badge-{{vm.shippingUIInfo.deviceStatusColor}}">
+                {{ vm.shippingUIInfo.deviceStatus }}
+            </span>
+        </ion-item>
+        <ion-item class="item text-center">
+          <!-- PAUSE/RECORDING/UPLOAD button -->
+          <div ng-if="vm.sessionInfo.loaded && vm.tripInfo.tripState !== vm.TRIP_STATE.NOT_STARTED" 
+          class="icon-circle-large {{vm.shippingUIInfo.statusCircle}}"
+          ng-click="vm.pauseRecordUpload()" ng-disabled="vm.sessionInfo.toggling">
+            <i class="icon {{vm.shippingUIInfo.statusIcon}}"></i>
+          </div>
+          <div ng-if="vm.shippingUIInfo.actionMsg" class="text-center" style="margin-top:10px;">Click to {{vm.shippingUIInfo.actionMsg}}</div>
+        </ion-item>
+          <!-- Trip Time Information -->
+          <ion-item class="item">
+            Trip Start: {{ vm.tripInfo.startTime | date: 'medium' }}
+          </ion-item>
+          <ion-item class="item">
+            Trip End: {{ vm.tripInfo.endTime | date: 'medium' }}
+          </ion-item>
+        </ion-item>
+      </div>
+        <!-- Live Data -->
+        <ion-item class="item item-divider">
+          Live Data
+        </ion-item>
+        <ion-item>
+          <div  ng-if="vm.variables[streamId] && !vm.variables[streamId].webOnly" class="row" ng-repeat="streamId in vm.allStreamIDs">
+            <div class="col col-50 realtime-label">
+              <small>{{ ::vm.variables[streamId].name }}</small>
+              <small ng-if="vm.streams[streamId].dataLabel">({{ vm.streams[streamId].dataLabel }})</small>
+            </div>  
+            <div class="col col-50 realtime-value">
+              <small>{{ vm.lastValue(streamId) }}<span ng-if="(vm.lastValue(streamId) !== 'Waiting...')">{{ vm.getUnits(streamId) }}</span></small>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col col-50 realtime-label">
+              <small>Last Shock</small>
+            </div>
+            <div class="col col-50 realtime-value">
+              <small>{{ vm.tripInfo.lastShock }}</small>
+            </div>
+          </div>
+        </ion-item>
+        <!-- <ion-item class="item item-divider">
+            BLE Connection
+        </ion-item> -->
+        <rssi></rssi>
+        
+        <!-- Trip Summary Data -->
+        <ion-item class="item item-divider">
+          Trip Summary Data
+        </ion-item>
+        <ion-item class="item text-center" ng-if="!vm.sessionInfo.analyzed">
+          <!-- Analyze Trip button -->
+          <div class="button button-full button-royal" ng-click="vm.analyzeTrip()"
+            ng-disabled="vm.tripInfo.tripState === vm.TRIP_STATE.NOT_STARTED">Analyze Trip</div>
+        </ion-item>
+        <ion-item ng-if="vm.sessionInfo.analyzed">
+          <div class="row">
+            <div class="col col-50 realtime-label">
+              <small>Trip Duration</small>
+            </div>
+            <div class="col col-50 realtime-value">
+              <small>{{ vm.tripInfo.tripDuration }}</small>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col col-50 realtime-label">
+              <small>Peak G Event</small>
+            </div>
+            <div class="col col-50 realtime-value">
+              <small>{{ vm.tripInfo.maxGShock }}</small>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col col-50 realtime-label">
+              <small>Max dV Event</small>
+            </div>
+            <div class="col col-50 realtime-value">
+              <small>{{ vm.tripInfo.maxDVShock }}</small>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col col-50 realtime-label">
+              <small>Min Temperature</small>
+            </div>
+            <div class="col col-50 realtime-value">
+              <small>{{ vm.tripInfo.minTemp }}</small>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col col-50 realtime-label">
+              <small>Max Humidity</small>
+            </div>
+            <div class="col col-50 realtime-value">
+              <small>{{ vm.tripInfo.maxHumidity }}</small>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col col-50 realtime-label">
+              <small>Exposure under 17°C</small>
+            </div>
+            <div class="col col-50 realtime-value">
+              <small>{{ vm.tripInfo.exposureDuration }}</small>
+            </div>
+          </div>
+        </ion-item>
+        <ion-item  ng-if="vm.sessionInfo.analyzed" class="item text-center">
+            <div class="button button-full button-balanced" ng-click="vm.sendMidTripUpdate()">
+                Send Trip Update <i class="icon ion-forward"></i>
+            </div>
+          </ion-item>
+
+        <!-- Upload When Paused -->
+        <ion-item ng-if="!vm.sessionInfo.latestUploaded" class="item text-center">
+          <div class="button button-full button-assertive" ng-click="vm.uploadLatest()" ng-disabled="vm.tripInfo.tripState !== vm.TRIP_STATE.PAUSED">
+            Upload Latest
+          </div>
+          <span ng-if="vm.tripInfo.tripState !== vm.TRIP_STATE.PAUSED">
+            Pause recording to upload latest
+          </span>
+        </ion-item>
+        <!-- END TRIP Button -->
+        <ion-item class="item item-divider"></ion-item>
+        <ion-item ng-if="vm.tripInfo.tripState === vm.TRIP_STATE.RECORDING ||
+        vm.tripInfo.tripState === vm.TRIP_STATE.PAUSED" class="item text-center">
+            <div class="button button-full button-dark" ng-click="vm.endTrip()">
+              End Trip
+            </div>
+        </ion-item>
+
+        <!-- Opportunistic Upload Button -->
+        <ion-item  ng-if="vm.tripInfo.tripState === vm.TRIP_STATE.UPLOAD_NEEDED" class="item text-center">
+            <div class="button button-full button-assertive" ng-click="vm.uploadTrip()">
+              Upload Trip
+            </div>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+    <ion-footer-bar align-title="center" class="bar-positive">
+      <div class="buttons">
+      </div>
+      <h1 class="title">
+      </h1>
+      <div class="buttons">
+        <button class="button" ng-click="vm.showSettings()" ng-if="vm.sessionInfo.canAccessSettings">
+        <i class="icon ion-settings"></i>
+      </button>
+      </div>
+    </ion-footer-bar>
+  </ion-view>

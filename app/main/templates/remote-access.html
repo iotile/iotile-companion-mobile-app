@@ -1,0 +1,22 @@
+<ion-view view-title="Remote Access">
+    <ion-content class="padding">
+        <ion-list>
+            <ion-item class="item item-divider">
+                Connection Information
+            </ion-item>
+            <ion-item class="item item-note item-text-wrap">
+                <p>
+                    You can connect to this phone using CoreTools with the IP address and port 
+                    listed below.
+                </p>
+            </ion-item>
+            <ion-item class="item" >
+                <h2>Status: {{ vm.statusString }}</h2>
+                <h2>Port: {{ vm.port }}</h2>
+            </ion-item>
+            <ion-item class="item" ng-repeat="ip in vm.ipList">
+                {{ ip }}
+            </ion-item>
+        </ion-list>  
+    </ion-content>
+</ion-view>

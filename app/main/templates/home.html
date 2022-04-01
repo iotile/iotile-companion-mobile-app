@@ -1,0 +1,14 @@
+<ion-view view-title="Home">
+  <ion-content>
+    <ion-list>
+      <ion-item class="item-remove-animate item-avatar" type="item-text-wrap" ui-sref="main.activeProject">
+        <img src="main/assets/images/iotile@2x.png">
+        <h2>{{ vm.name }}</h2>
+      </ion-item>
+      <ion-item class="item" style="color:red;" ng-if="vm.error">
+        <p><b>{{ vm.error }}</b></p>
+      </ion-item>
+    </ion-list>
+
+  </ion-content>
+</ion-view>

@@ -1,0 +1,28 @@
+<ion-view view-title="Debug Logs">
+  <ion-content>
+    <ion-list>
+        <ion-item class="item item-toggle">
+            Filter Debug Logs
+            <label class="toggle toggle-assertive">
+                <input type="checkbox" ng-model="vm.filterDebug" ng-change="vm.reloadLogs()">
+                <div class="track">
+                    <div class="handle"></div>
+                </div>
+            </label>
+      </ion-item>
+        <ion-item class="item item-icon-left item-text-wrap" ng-repeat="log in vm.logs" ng-click=vm.showLog(log)>
+            <i ng-class="vm.logClass(log)"></i>
+            <h2>{{ vm.parseDate(log) }}: {{ log.arguments.length}} Extra Args</h2>
+            <p class="note">{{ log.message }}</p>
+        </ion-item>
+    </ion-list>
+  </ion-content>
+  <ion-footer-bar align-title="center" class="bar-positive">
+    <h1 class="title">
+      <button style="margin-top:4px; border-color: #015083" ng-click="vm.clearLogs()" class="button button-assertive"
+              ng-if="vm.logs.length">
+        <i class="icon ion-android-alert"></i> <b>Clear Logs</b>
+      </button>
+    </h1>
+  </ion-footer-bar>
+</ion-view>

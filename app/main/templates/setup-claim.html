@@ -1,0 +1,43 @@
+<ion-view view-title="Pick Your Project">
+  <ion-content>
+    <div class="item item-icon-left item-assertive item-text-wrap" ng-if="vm.error">
+      <i class="icon ion-alert-circled"></i>
+      <p style="color: white;"><b>{{ vm.error }}</b></p>
+    </div>
+    <ion-list>
+      <ion-item class="item item-divider">
+        ID: {{ vm.device }}
+      </ion-item>
+      <ion-item class="item item-divider">
+        Claim Device
+      </ion-item>
+      <ion-item class="item">
+            Selected Project: <span ng-if="vm.selectedProject">{{ vm.selectedProject.name }}</span>
+      </ion-item>
+      <ion-item class="item">
+        <a ng-click="vm.showSelectProjectModal()" class="button button-calm icon-left ion-ios-search" style="float: left">Find Project</a>
+        <a ng-click="vm.showNewProjectModal()" class="button button-calm icon-left ion-plus-round" style="float: right">New Project</a>
+      </ion-item>
+      <div class="card">
+        <div class="item item-text-wrap">
+          <small>
+            <i>
+              Select a project to hold your new device.
+              By clicking 'Claim' below, the device will be assigned into this
+              project and become useable.
+            </i>
+          <b>
+            You are also agreeing to the
+            <a href="https://iotile.cloud/hw-terms/" target="_blank">terms and conditions of use for this device</a>
+          </b>
+          </small>
+        </div>
+      </div>
+    </ion-list>
+  </ion-content>
+  <ion-footer-bar align-title="center" class="bar-positive">
+    <div class="button-bar">
+      <a ng-click="vm.claimDevice()" ng-disabled="!vm.selectedProject" class="button button-balanced icon-left ion-checkmark-round">Claim</a>
+    </div>
+  </ion-footer-bar>
+</ion-view>

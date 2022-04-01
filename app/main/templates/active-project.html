@@ -1,0 +1,103 @@
+<ion-view view-title="Active Project">
+  <ion-nav-buttons side="right">
+    <logs-button></logs-button>
+  </ion-nav-buttons>
+  <ion-content class="has-footer">
+
+    <ion-refresher pulling-text="Pull to refresh..." on-refresh="vm.onRefresh()">
+    </ion-refresher>
+    <ion-list>
+      <ion-item class="item item-divider">
+        {{ vm.project.name }}<b ng-if="!vm.cloud.isDefault()"> - {{ vm.cloud.server.longName }}</b>
+      </ion-item>
+      <ion-item class="item" ng-if="!vm.scanning && vm.bleEnabled">
+        <button style="font-size: 18px" ng-click="vm.onRefresh()" ng-disabled="!vm.project.devices.length"
+                class="button button-block button-balanced">
+          <i class="icon ion-bluetooth"></i> <b>Begin Scan</b>
+        </button>
+      </ion-item>
+      <ion-item class="item" ng-if="vm.scanning && vm.bleEnabled">
+        <button style="font-size: 18px" class="button button-block button-energized" disabled>
+          <i class="icon ion-bluetooth"></i> <b>Scanning</b>
+        </button>
+      </ion-item>
+      <ion-item class="item" ng-if="!vm.bleEnabled">
+        <button style="font-size: 18px" class="button button-block button-balanced" disabled>
+          <i class="icon ion-bluetooth"></i> <b>Bluetooth Disabled</b>
+        </button>
+      </ion-item>
+      <ion-item class="item item-divider">
+        <div class="row" style="padding-bottom: 0px; padding: 0px;">
+          <div class "col text-left" style="padding-top: 6px; padding-bottom: 0px;">
+            In Range <i class="icon ion-bluetooth"></i>
+          </div>
+          <div class="col text-right" style="padding: 0px; margin-top: 0px; border: 0px;">
+            <button class="button button-small button-assertive right" ng-if="vm.showAll" ng-click="vm.showAll = false;">Show <i class="icon ion-bluetooth"></i> Only</button>
+            <button class="button button-small button-balanced right" ng-if="!vm.showAll" ng-click="vm.showAll = true;">Show All</button>
+          </div> 
+        </div>
+      </ion-item>
+      <ion-item ng-if="!vm.nearbyDevices.length" class="item item-icon-left item-icon-right">
+        <p>No devices found, try scanning again.</p>
+      </ion-item>
+      <a class="item item-icon-left item-icon-right"
+           ng-repeat="device in vm.nearbyDevices | orderBy:'slug'"
+           ng-click="vm.onConnect(device.slug)"
+           on-hold="vm.onHold($event, device.slug)">
+        <low-voltage-indicator ng-model="device"></low-voltage-indicator>
+        <h2>{{ device.label }}</h2>
+        <p>ID: {{ device.gid }}</p>
+        <i ng-if="vm.userConnected(device.slug)" class="icon ion-ios-locked assertive"></i>
+        <i ng-if="!vm.userConnected(device.slug)" class="icon ion-chevron-right"></i>
+      </a>
+
+      <div ng-if="vm.showAll">
+        <ion-item class="item item-divider">
+            Out of Range
+        </ion-item>
+        <ion-item class="item item-icon-left item-icon-right"
+            ng-repeat="device in vm.project.devices | orderBy:'slug'"
+            ng-if="!vm.deviceSeen(device.slug) && !vm.scanning">
+          <h2>{{ device.label }}</h2>
+          <p>ID: {{ device.gid }}</p>
+          <!--
+          <i ng-if="!vm.firmwareAvailable(device)" class="icon ion-arrow-right-b dark"></i>
+          <i ng-if="vm.firmwareAvailable(device)" class="icon ion-lightbulb energized"></i>
+        -->
+      </ion-item>
+      <ion-item ng-if="vm.showAll && vm.nearbyDevices.length == vm.project.devices.length" class="item item-icon-left item-icon-right">
+          <p>No additional devices found</p>
+      </ion-item>
+    </div>
+    <!-- <ion-item>
+      <button ng-click="vm.syncProject()" style="font-size: 18px"
+        ng-disabled="vm.scanning" class="button button-block button-royal">
+        <i class="icon ion-ios-cloud-download"></i> <b>Sync Project</b>
+      </button>
+    </ion-item> -->
+    </ion-list>
+  </ion-content>
+
+  <ion-footer-bar align-title="center" class="bar-positive">
+    <div class="buttons">
+    </div>
+    <h1 class="title">
+      <button ng-click="vm.onCollect()" style="margin-top:4px; border-color: #015083" 
+              ng-disabled="vm.scanning" class="button button-balanced"
+              ng-if="!vm.template.extraData.mobile.waveform">
+              <i class="icon ion-ios-refresh"></i><b>Collect All</b>
+      </button>
+      <upload-logs-button ng-if="!vm.template.extraData.mobile.waveform"></upload-logs-button>
+      <button ng-click="vm.syncProject()" style="margin-top:4px; border-color: #015083" 
+              ng-disabled="vm.scanning" class="button button-royal"
+              ng-if="vm.template.extraData.mobile.waveform">
+              <i class="icon ion-ios-cloud-download"></i><b>Sync Project</b>
+      </button>
+    </h1>
+    <div class="buttons">
+        <button class="button" ng-click="vm.addNote()">
+        <i class="icon ion-compose"></i>
+      </button>
+    </div>
+  </ion-footer-bar>
+</ion-view>

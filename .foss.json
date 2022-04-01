@@ -1,0 +1,180 @@
+{
+    "add-packages": [
+        {
+            "registry": "gem",
+            "package": "ae",
+            "version": "1.8.2",
+            "license": "BSD-2",
+            "url": "https://github.com/rubyworks/ae/tree/1.8.2",
+            "owner": "Corentin Dupret"
+        },
+        {
+            "registry": "gem",
+            "package": "ffi",
+            "version": "1.9.18",
+            "license": "BSD license",
+            "url": "https://github.com/ffi/ffi/tree/1.9.18",
+            "owner": "Corentin Dupret"
+        },
+        {
+            "package": "libffi",
+            "license": "GPL",
+            "url": "https://github.com/libffi/libffi/tree/b55baf0b500ccc7636a8a55e0506d9da787ad2dd",
+            "owner": "Corentin Dupret"
+        },
+        {
+            "registry": "gem",
+            "package": "highline",
+            "version": "1.7.10",
+            "license": "LGPL",
+            "url": "https://github.com/JEG2/highline/tree/v1.7.10",
+            "owner": "Corentin Dupret"
+        },
+        {
+            "registry": "gem",
+            "package": "kramdown",
+            "version": "1.8.0",
+            "license": "LGPL",
+            "url": "https://kramdown.gettalong.org/index.html",
+            "owner": "Corentin Dupret"
+        },
+        {
+            "registry": "gem",
+            "package": "cucumber",
+            "version": "2.4.0",
+            "license": "MIT",
+            "url": "https://github.com/cucumber/cucumber-ruby/tree/v2.4.0",
+            "owner": "Corentin Dupret"
+        },
+        {
+            "registry": "gem",
+            "package": "detroit",
+            "version": "0.4.0",
+            "license": "GPL-3.0-only",
+            "owner": "Corentin Dupret"
+        },
+        {
+            "registry": "gem",
+            "package": "detroit-gem",
+            "version": "0.4.0",
+            "license": "GPL-3.0-only",
+            "owner": "Corentin Dupret"
+        },
+        {
+            "registry": "gem",
+            "package": "detroit-standard",
+            "version": "0.4.0",
+            "license": "GPL-3.0-only",
+            "owner": "Corentin Dupret"
+        },
+        {
+            "registry": "gem",
+            "package": "detroit-yard",
+            "version": "0.4.0",
+            "license": "GPL-3.0-only",
+            "owner": "Corentin Dupret"
+        },
+        {
+            "registry": "gem",
+            "package": "facets",
+            "version": "3.1.0",
+            "license": "THE RUBY LICENSE",
+            "url": "https://github.com/rubyworks/facets/tree/3.1.0",
+            "owner": "Corentin Dupret"
+        },
+        {
+            "registry": "gem",
+            "package": "mime-types",
+            "version": "1.25.1",
+            "license": "(MIT License OR Perl Artistic License (version 2) OR GNU GPL version 2)",
+            "url": "https://github.com/mime-types/ruby-mime-types/tree/v1.25.1",
+            "owner": "Corentin Dupret"
+        },
+        {
+            "registry": "gem",
+            "package": "rdoc",
+            "version": "3.12.2",
+            "license": "GPL",
+            "url": "https://github.com/ruby/rdoc/tree/v3.12.2",
+            "owner": "Corentin Dupret"
+        },
+        {
+            "registry": "gem",
+            "package": "rubysl-bigdecimal",
+            "version": "2.0.2",
+            "license": "BSD-3",
+            "url": "https://github.com/rubysl/rubysl-bigdecimal/tree/2.0",
+            "owner": "Corentin Dupret"
+        },
+        {
+            "package": "libsass",
+            "version": "1.25.1",
+            "license": "MIT",
+            "url": "https://github.com/sass/libsass",
+            "owner": "Corentin Dupret"
+        },
+        {
+            "registry": "npm",
+            "package": "node-sass",
+            "version": "0.9.6",
+            "license": "MIT",
+            "url": "https://github.com/sass/node-sass/blob/v0.9.6",
+            "owner": "Corentin Dupret"
+        }
+    ],
+    "multi-license-selection": [
+        {
+            "package": "mime-types",
+            "version": "1.25.1",
+            "multi-license-selection": "MIT License",
+            "owner": "Corentin Dupret"
+        }
+    ],
+    "additional-info": [
+        {
+            "package": "libffi",
+            "justification": "This C dependency will only be used for building (or testing), but is not part of the shipped package.",
+            "owner": "Corentin Dupret"
+        },
+        {
+            "package": "highline",
+            "justification": "This Ruby dependency will only be used for building (or testing), but is not part of the shipped package.",
+            "owner": "Corentin Dupret"
+        },
+        {
+            "package": "kramdown",
+            "justification": "This Ruby dependency will only be used for building (or testing), but is not part of the shipped package.",
+            "owner": "Corentin Dupret"
+        },
+        {
+            "package": "detroit",
+            "justification": "This Ruby dependency will only be used for building (or testing), but is not part of the shipped package.",
+            "owner": "Corentin Dupret"
+        },
+        {
+            "package": "detroit-gem",
+            "justification": "This Ruby dependency will only be used for building (or testing), but is not part of the shipped package.",
+            "owner": "Corentin Dupret"
+        },
+        {
+            "package": "detroit-standard",
+            "justification": "This Ruby dependency will only be used for building (or testing), but is not part of the shipped package.",
+            "owner": "Corentin Dupret"
+        },
+        {
+            "package": "detroit-yard",
+            "justification": "This Ruby dependency will only be used for building (or testing), but is not part of the shipped package.",
+            "owner": "Corentin Dupret"
+        },
+        {
+            "package": "facets",
+            "justification": "This Ruby dependency will only be used for building (or testing), but is not part of the shipped package.",
+            "owner": "Corentin Dupret"
+        },
+        {
+            "package": "rdoc",
+            "justification": "This Ruby dependency will only be used for building (or testing), but is not part of the shipped package.",
+            "owner": "Corentin Dupret"
+        }
+    ]
+}

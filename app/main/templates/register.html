@@ -1,0 +1,58 @@
+<ion-view hide-nav-bar="true" view-title="Register">
+
+  <!-- do you want padding? -->
+  <ion-content class="padding loginpage" ng-style="vm.loginStyle">
+
+    <!--
+    <div class="item item-avatar">
+      <img ng-src="main/assets/images/iotile@2x.png">
+      <h2>{{ vm.name }}</h2>
+      <p ng-if="vm.version">v{{ vm.version }}</p>
+    </div>
+    -->
+
+    <div class="item item-icon-left item-assertive item-text-wrap" ng-if="vm.error">
+      <i class="icon ion-alert-circled"></i>
+      <p style="color: white;"><b>{{ vm.error }}</b></p>
+    </div>
+
+  </ion-content>
+
+  <div class="card registerform">
+    <form name="vm.registerForm" novalidate>
+      <div style="margin-top: 10px" class="list list-inset">
+        <label class="item item-input" ng-class="{ 'has-error' : vm.registerForm.username.$invalid && vm.registerForm.$submitted, 'valid' : vm.registerForm.username.$valid && vm.registerForm.$submitted}">
+            <input type="text" placeholder="Username" name="username" ng-model="vm.user.username" ng-minlength="1" autocorrect="off" autocapitalize="none" required>
+        </label>
+        <label class="item item-input" ng-class="{ 'has-error' : vm.registerForm.name.$invalid && vm.registerForm.$submitted, 'valid' : vm.registerForm.name.$valid && vm.registerForm.$submitted}">
+            <input type="text" placeholder="Full Name" name="name" ng-model="vm.user.name" ng-minlength="1" autocorrect="off" required>
+        </label>
+        <label class="item item-input" ng-class="{ 'has-error' : vm.registerForm.email.$invalid && vm.registerForm.$submitted, 'valid' : vm.registerForm.email.$valid && vm.registerForm.$submitted}">
+            <input type="email" placeholder="Email" name="email" ng-model="vm.user.email" ng-minlength="1" required>
+        </label>
+        <label class="item item-input" ng-class="{ 'has-error' : vm.registerForm.password1.$invalid && vm.registerForm.$submitted, 'valid' : vm.registerForm.password1.$valid && vm.registerForm.$submitted}">
+            <input type="password" placeholder="Password" name="password2" ng-model="vm.user.password1" ng-minlength="1" required>
+        </label>
+        <label class="item item-input" ng-class="{ 'has-error' : vm.registerForm.password2.$invalid && vm.registerForm.$submitted, 'valid' : vm.registerForm.password2.$valid && vm.registerForm.$submitted}">
+            <input type="password" placeholder="Confirm Password" name="password2" ng-model="vm.user.password2" ng-minlength="1" required>
+        </label>
+        <p align="center" style="padding-top: 20px;">
+            By clicking on "Sign Up" below, you are agreeing to the <a ng-click="vm.onTerms()">Terms of Use</a> and <a ng-click="vm.onPrivacy()">Privacy Policy</a>
+        </p>
+        <div class="padding">
+          <button type="submit" class="button button-block button-positive" ng-click="vm.onRegister(vm.registerForm)" ng-disabled="vm.registerForm.$invalid">Sign up</button>
+           <button class="button button-block button-success" ng-click="vm.onLogin()">Already a user</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <br/>
+
+  <div style="position: absolute; bottom: 10px; right: 10px; color: white;">
+    <small>
+    v{{ vm.version }}
+    </small>
+  </div>
+
+
+</ion-view>

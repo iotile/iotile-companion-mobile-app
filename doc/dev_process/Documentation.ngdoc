@@ -1,0 +1,208 @@
+@ngdoc overview
+@name Documentation
+@description
+
+# Writing Angular Documentation
+
+This guide describes how to add `ngdoc` style annotations to typescript and javascript source in order to
+produce API documentation as well as how to write narrative documentation in the form or `.ngdoc` files.
+
+## Introduction
+
+This app uses {@link https://www.npmjs.com/package/gulp-ngdocs gulp-ngdocs} to produce its documentation.  There 
+are two kinds of documentation:
+
+- **API Documentation:** This is produced from inline comments with a specific format in javascript and typescript
+  source files.  
+- **Narrative Guides:** These are article style narratives that are produced from `*.ngdoc` files inside the `doc` 
+  subdirectory.  The file you are currently reading is an example of a Narrative Guide.
+
+**Note Well:** The ngdoc documentation format is **very finicky** so you should read the following sections carefully
+and make sure you understand all of the naming conventions and specific details mentioned, otherwise your documentation
+will either show up incorrectly or magically not show up at all.
+
+## Viewing Documentation
+
+Documenation is automatically built when the project is compiled using `gulp compile`.  The documentation has to be
+served and can be viewed in a browser using `gulp serve-docs`.  The built documentation is located in `build/docs`.
+
+### Documenting Anything
+
+Documenting an entity means placing a special comment that starts with `\**` in front of it and contains at least three lines:
+
+- `@ngdoc <object type>`
+- `@name <object name>`
+- `@description`
+
+Depending on the object type there will be other required and optional fields, but these three are always required.
+
+For example, documenting a class named RingBuffer inside of the `Utilities` namespace would be done as follows:
+
+<pre>
+/**
+ * @ngdoc object
+ * @name Utilities.type:RingBuffer
+ * 
+ * @description
+ * A fixed size binary ringbuffer built on top of a Javascript ArrayBuffer
+ * The RingBuffer allows pushing, popping and peeking chunks of data as well
+ * as popping and peeking typed structures using popAs and peekAs.
+ * 
+ * @property {number} offset The offset to the start of valid data in the ArrayBuffer
+ * @property {number} count The count of valid data in the ArrayBuffer
+ */
+</pre>
+
+#### Important Notes
+
+1. The format of the `@name` tag is very important.  See how it is `<module>.type:<name of object>`.  There are specific
+   incantations like this for objects, functions and services.
+2. The beginning `@ngdoc object` tag is important and tells `gulp-ngdocs` that this should be a class, which means we
+   can attach methods to it later.
+
+## API Documentation
+
+All API documentation is generated from comment blocks included inline with typescript of javascript source files.  They
+are written in the `ngdoc` format, which is standard for Angular projects.  However, the format is not well documented
+itself, so this guide is here to illustrate, as well as possible, how to effectively create ngdoc documentation.
+
+### Structure
+
+The overall structure enforced by `ngdocs` is a two-level structure with `modules` at the top level and everything else attached to
+a module.  The modules are used to populate the left-sidebar navigation area.  **Every documented item should be attached to exactly
+one module so that it shows up in the sidebar.
+
+Since we are using Angular 1 with typescript bolted on, `module` in our usage will refer to both a `module` in the angular sense as well
+as a Typescript Namespace that just contains classes and functions.
+
+### Documenting a Module or Namespace
+
+Documenting an Angular Module or a Typescript Namespace is done by using the `@ngdoc overview` tag.  For example, creating an entry for the `iotile.device` namespace is done using:
+
+<pre>
+/**
+ * @ngdoc overview
+ * @name iotile.device
+ * @description
+ *
+ * ...
+ */
+</pre>
+
+Any description you want to add can appear after the `@description` tag in Showdown format (a variant of Markdown)
+
+
+### Documenting a Class
+
+All classes must belong to a namespace and are documented by using an `@ngdoc object` tag as follows:
+
+<pre>
+/**
+ * @ngdoc object
+ * @name module.type:ObjectName
+ * 
+ * @description
+ */
+</pre>
+
+#### Important Notes
+
+1. The `@name` tag must have the module's name that this object is a part of followed a `.` followed by the literal phrase `type` followed by a `:` followed by the object's name.  **If you don't do this the object will not show up correctly.**
+
+### Documenting Public Class Methods
+
+Once you have documented a class, you can attach public methods to it by prepending each method with an `@ngdoc method` tag.  
+
+**You must include an explicit reference to the object this method is a part of and format the method's name in a very spefic way.**
+
+For example, to add a `push` method to the `RingBuffer` class in the `Utilities` namespace you would use:
+
+<pre>
+/**
+ * @ngdoc object
+ * @name Utilities.type:RingBuffer
+ * 
+ * @description
+ * ...
+ */
+
+/**
+ * @ngdoc method
+ * @name Utilities.type:RingBuffer#push
+ * @methodOf Utilities.type:RingBuffer
+ *
+ * @description
+ * ...
+ */
+</pre>
+
+Note the formatting of the name and the explicit reference to the class in `@methodOf`.
+
+#### Example with Parameters and Return Value
+
+<pre>
+/**
+ * @ngdoc method
+ * @name Utilities.type:RingBuffer#peekAs
+ * @methodOf Utilities.type:RingBuffer
+ *
+ * @description
+ * Peek a formatted structure from the ring buffer according to a format string
+ *
+ *  ## Exceptions
+ * - **{@link Errors.type:RingBufferEmptyError Errors.RingBufferEmptyError}:** There are fewer than length
+ *   bytes stored in the RingBuffer.
+ *
+ * For example, say we want to pop a uint8_t, uint16_t, uint16_t structure off of
+ * the ring buffer.  We could call peekAs("BHH").  This is logically equivalent to
+ * val = peek(expectedBufferSize(fmt));
+ * return unpackArrayBuffer(fmt, val);
+ *
+ * @param {string} fmt The format string defining what we want to peek
+ * @throws {Errors.RingBufferEmptyError} If there are fewer bytes in the ringbuffer than 
+ * 										 required by fmt
+ * @returns {Array} The structure popped off of the buffer as a list of numbers
+ */
+</pre>
+
+### Documenting a Standalone Function
+
+You should document standalone functions using the `@ngdoc object` tag, NOT the `@ngdoc function` tag since ngdocs assumes all functions are object constructors and inserts invalid sample code.
+
+For example, to document the `packArrayBuffer` function in the `Utilities` namespace, use:
+
+<pre>
+/**
+ * @ngdoc object
+ * @name Utilities.function:packArrayBuffer
+ * @description
+ * ...
+ */
+</pre>
+
+Note that the `@name` of the function is `module.function:functionName` but the `@ngdoc` tag is `object` to avoid autogenerating incorrect sample code.
+
+### Documenting a Service
+
+Documenting a Service is exactly the same as documenting an object except that the `ngdoc` tag should be `@ngdoc service`.  It still
+needs to be prefixed with a module name as follows.  In this example we're adding the `IOTileAdapter` service to the `iotile.device` module.  You add public service methods just like adding object methods including the explicit `@methodOf` tags.
+
+<pre>
+/**
+ * @ngdoc service
+ * @name iotile.device.service:IOTileAdapter
+ */
+</pre>
+
+Note that the name has to be `module.service:serviceName`.
+
+## Write a Guide
+
+Guides have the same format as documentation embedded in a `.js` file but do not need to be enclosed in comments and must have a `.ngdoc`
+file extension.  They need to start with an `@ngdoc overview` tag and **their `@name` must be exactly the same as their file name`.**
+
+Their contents must follow an `@description` tag with exactly one blank line.  See `doc/dev_process/Documentation.ngdoc` for an example.
+
+## Adding Sections to the Documentation
+
+Sections appear along the top nagivation bar in the documentation.  All of the guide files need to be referenced in exactly one section, which are defined in the docs task in `gulp/compiling.js`.  You can add additional sections by modifying that file to reference them.

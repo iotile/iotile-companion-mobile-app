@@ -1,0 +1,14 @@
+app/*
+build/*
+node_modules/*
+platforms/*
+www/*
+plugins/*
+res/*
+.git/*
+resources/*
+.tmp/*
+coverage/*
+doc/*
+gulp/*
+media/*

@@ -1,0 +1,70 @@
+<ion-modal-view class="">
+  <div>
+    <ion-header-bar class="bar-positive">
+      <h1 class="title">{{ vm.modalInterface.name }} Configuration</h1>
+    </ion-header-bar>
+    <ion-content>
+      <ion-list>
+        <div ng-if="vm.modalInterface.wireless">
+          <ion-item class="item item-divider">
+            Choose Network
+          </ion-item>
+          <ion-item class="item" ng-if="vm.hasNetworks">
+          <!--Add a selector switch here for typing the network name that sets vm.manualSelection-->
+            <select style="width: 80%" ng-model="vm.selectedNetwork" required="required"
+                    ng-options="network for network in vm.availableNetworks">
+            </select>
+
+            <div ng-if="vm.manualSelection">
+              <label class="item item-input">
+                <span class="input-label">Enter Network Name:</span>
+                <input type="text" name="manual-network-name" 
+                      ng-model="vm.selectedNetwork" required maxlength="18" />
+              </label>
+            </div>
+          </ion-item>
+          <ion-item class="item item-divider" ng-if="vm.selectedNetwork">
+            Enter Password
+          </ion-item>
+          <ion-item class="item item-input" ng-if="vm.selectedNetwork">
+            <input type="password" name="manual-network-name" ng-model="vm.selectedNetworkPassword" required maxlength="18" />
+          </ion-item>
+          <ion-item class="item" ng-if=!vm.hasNetworks>
+            Scanning for networks...
+          </ion-item>
+      </div>
+      <ion-item class="item item-divider">
+        IP Address Configuration
+      </ion-item>
+      <ion-item class="item">
+        <ion-toggle ng-model="vm.modalInterfaceConfig.useStatic">Use Static IP</ion-toggle>
+        <label class="item item-input" ng-if="vm.modalInterfaceConfig.useStatic">
+          <span class="input-label">IP Address</span>
+          <input type="text"ng-model="vm.modalInterfaceConfig.staticIP">
+        </label>
+        <label class="item item-input" ng-if="vm.modalInterfaceConfig.useStatic">
+          <span class="input-label">Network Mask</span>
+          <input type="text"ng-model="vm.modalInterfaceConfig.netmask">
+        </label>
+        <label class="item item-input" ng-if="vm.modalInterfaceConfig.useStatic">
+          <span class="input-label">Gateway</span>
+          <input type="text"ng-model="vm.modalInterfaceConfig.gateway">
+        </label>
+        <label class="item item-input" ng-if="vm.modalInterfaceConfig.useStatic">
+          <span class="input-label">DNS Server</span>
+          <input type="text"ng-model="vm.modalInterfaceConfig.dns">
+        </label>
+      </ion-item>
+      </ion-list>
+    </ion-content>
+    <ion-footer-bar align-title="center" class="bar-positive">
+      <div class="buttons">
+        <button class="button" ng-click="vm.hideModal()">Cancel</button>
+      </div>
+      <h1 class="title"></h1>
+      <div class="buttons">
+        <button ng-disabled="!vm.checkConnectInterface(vm.modalInterface)" ng-click="vm.connectInterface(vm.modalInterface)" class="button">Connect</button>
+      </div>
+    </ion-footer-bar>
+    </div>
+</ion-modal-view>

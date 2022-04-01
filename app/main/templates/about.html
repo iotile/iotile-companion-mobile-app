@@ -1,0 +1,28 @@
+<ion-view view-title="About">
+  <!-- do you want padding? -->
+  <ion-content class="padding">
+    <ion-list>
+      <ion-item class="item-remove-animate item-avatar" type="item-text-wrap">
+        <img src="main/assets/images/iotile@2x.png">
+        <h2>{{ vm.name }}</h2>
+        <p>{{ vm.version }}</p>
+      </ion-item>
+      <a class="item item-icon-left item-icon-right" ng-click="vm.onWebApp()">
+        <i class="icon ion-speedometer"></i>
+        IOTile Web App
+        <i class="icon ion-forward"></i>
+      </a>
+      <a class="item item-icon-left item-icon-right" ng-click="vm.onPrivacy()">
+        <i class="icon ion-information-circled"></i>
+        Privacy Notice
+        <i class="icon ion-forward"></i>
+      </a>
+      <a class="item item-icon-left item-icon-right" ng-click="vm.onTerms()">
+        <i class="icon ion-hammer"></i>
+        Terms of Service
+        <i class="icon ion-forward"></i>
+      </a>
+    </ion-list>
+
+  </ion-content>
+</ion-view>

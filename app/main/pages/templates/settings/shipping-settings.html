@@ -1,0 +1,57 @@
+<ion-view view-title="Device Settings">
+        <ion-content>
+          <div class="item item-icon-left item-assertive item-text-wrap" ng-if="vm.error">
+            <i class="icon ion-alert-circled"></i>
+            <p style="color: white;"><b>{{ vm.error }}</b></p>
+          </div>
+          <ion-list>
+            <div ng-if="vm.user.canModifyDevice(vm.project.orgSlug)">
+            <ion-item class="item item-divider">
+              General Settings
+            </ion-item>
+            <ion-item ng-click="vm.setLabel()" class="item item-icon-right">
+              Edit Label <span ng-if="vm.labelModified()" class="energized">(modified)</span>
+              <i class="icon ion-edit"></i>
+            </ion-item>
+            <ion-item ng-click="vm.setLocation()" class="item item-icon-right">
+              Edit Location <span ng-if="vm.locationModified()" class="energized">(modified)</span>
+              <i class="icon ion-map"></i>
+            </ion-item>
+            </div>
+            <ion-item ng-click="vm.getProperties()" class="item item-icon-right" ng-if="vm.user.canReadProperties(vm.project.orgSlug)">
+              View Properties
+              <i class="icon ion-chevron-right"></i>
+            </ion-item>
+            </ion-item>
+            <ion-item class="item item-divider">
+              Shock and Vibration
+            </ion-item>
+            <ion-item ng-click="vm.getThreshold()" class="item item-icon-right">
+              Trigger Threshold
+              <i class="icon ion-chevron-right"></i>
+            </ion-item>
+            <ion-item class="item item-divider">
+              Environmental
+            </ion-item>
+            <ion-item ng-click="vm.getUserTimer()" class="item item-icon-right">
+              Wakeup Timer
+              <i class="icon ion-chevron-right"></i>
+            </ion-item>
+            <!-- <ion-item ng-click="" class="item item-icon-right">
+              Units
+              <i class="icon ion-shuffle"></i>
+            </ion-item> -->
+            <div ng-if="vm.hasAccessToAdvancedOptions">
+              <ion-item class="item item-divider">
+                Advanced
+              </ion-item>
+              <ion-item ng-click="vm.resetData()" class="item item-icon-right">
+                Reset All Data
+                <i class="icon ion-chevron-right"></i>
+              </ion-item>
+            </div>
+          </div>
+          </ion-list>
+        </ion-content>
+      </ion-view>
+      

@@ -1,0 +1,43 @@
+<ion-modal-view class="">
+  <div>
+    <ion-header-bar class="bar-positive">
+      <h1 class="title">Report Info</h1>
+    </ion-header-bar>
+    <ion-content>
+      <ion-list>
+        <ion-item class="item item-divider">
+          Log Information:
+        </ion-item>
+        <ion-item class="item item-icon-left">
+          <i class="icon ion-star"></i>
+          <h2>Device:</h2> <p>{{ vm.report.deviceSlug }}</p>
+        </ion-item>
+        <ion-item class="item item-icon-left">
+          <i class="icon ion-calendar"></i>
+          <h2>Date:</h2> <p>{{ vm.parseDate(vm.report) }}</p>
+        </ion-item>
+        <ion-item class="item item-icon-left">
+          <i class="icon ion-ios-list"></i>
+          <h2>Readings:</h2> <p>{{ vm.report.numReadings }}</p>
+        </ion-item>
+        <ion-item class="item item-icon-left item-text-wrap">
+          <i class="icon ion-arrow-swap"></i>
+          <h2>Status:</h2> <p>{{ vm.statusDisplay }}</p>
+        </ion-item>
+        <ion-item class="item item-icon-left">
+          <i class="icon ion-document"></i>
+          <h2>Data Type:</h2> <p>{{ vm.streamerDisplay }}</p>
+        </ion-item>
+        <ion-item ng-if="vm.isStaff()" class="item item-icon-left">
+          <i class="icon ion-help-circled"></i>
+          <h2>Range:</h2> <p>{{ vm.report.lowestReadingId }} - {{ vm.report.highestReadingId }}</p>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+    <ion-footer-bar align-title="center" class="bar-positive">
+      <div class="button-bar">
+        <button ng-click="vm.remove()" class="button button-positive">Ok</button>
+      </div>
+    </ion-footer-bar>
+  </div>
+</ion-modal-view>

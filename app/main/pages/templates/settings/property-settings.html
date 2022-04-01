@@ -1,0 +1,18 @@
+<ion-view view-title="Device Properties">
+        <ion-content>
+          <div class="item item-icon-left item-assertive item-text-wrap" ng-if="vm.error">
+            <i class="icon ion-alert-circled"></i>
+            <p style="color: white;"><b>{{ vm.error }}</b></p>
+          </div>
+          <ion-list>
+            <ion-item class="item item-divider" ng-if="!vm.error">
+              Device {{vm.deviceSlug}}
+            </ion-item>
+            <ion-item ng-repeat="property in vm.properties" ng-click="" class="item item-icon-right">
+              <b>{{ property.name }}: </b> {{ property.value }}
+              <!-- <i class="icon ion-edit"></i> -->
+            </ion-item>
+          </ion-list>
+        </ion-content>
+      </ion-view>
+      

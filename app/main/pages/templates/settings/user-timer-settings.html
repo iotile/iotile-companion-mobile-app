@@ -1,0 +1,23 @@
+<ion-view view-title="Set Timer Interval">
+        <ion-content>
+          <div class="item item-icon-left item-assertive item-text-wrap" ng-if="vm.error">
+            <i class="icon ion-alert-circled"></i>
+            <p style="color: white;"><b>{{ vm.error }}</b></p>
+          </div>
+          <ion-list>
+            <ion-item class="item item-divider" ng-if="!vm.error">
+              Device {{vm.deviceSlug}}
+            </ion-item>
+            <ion-item class="item item-icon-right">
+              <b>Current Interval: </b><span ng-if="vm.timerInterval != null">{{ vm.timerInterval }}</span>
+            </ion-item>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label"><b>New Interval:</b></span>
+                <input type="number" placeholder="<time in minutes - minimum: 5>" name="newTimer" class="form-control" ng-model="vm.newTimer" min="5" required>
+              </label>
+            <ion-item class="item text-center">
+                <button ng-disabled="!vm.newTimer || vm.newTimer < 5" class="button button-balanced" ng-click="vm.updateTimer()">Set New Timer</button>
+            </ion-item>
+          </ion-list>
+        </ion-content>
+      </ion-view>

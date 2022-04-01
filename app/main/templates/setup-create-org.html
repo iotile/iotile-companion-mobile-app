@@ -1,0 +1,42 @@
+<ion-view title="Create a Company">
+  <ion-nav-bar class="bar-positive">
+  </ion-nav-bar>
+  <ion-content>
+    <form name="orgForm" novalidate>
+      <div class="list">
+        <ion-item class="item item-divider">
+          Company Name:
+        </ion-item>
+        <ion-list>
+          <label class="item item-input item-stacked-label">
+            <input ng-model="vm.newOrgName" name="orgName" required="required"/>
+          </label>
+        </ion-list>
+        <ion-item class="item item-divider">
+          About:
+        </ion-item>
+        <ion-list>
+          <label class="item item-input item-stacked-label">
+            <input ng-model="vm.newOrgAbout" name="orgAbout"/>
+          </label>
+        </ion-list>
+      </div>
+    </form>
+    <div class="card">
+      <div class="item item-text-wrap">
+        <small>
+          <i>
+            Name your Company. All devices you claim and projects you create will stay organized
+            within this Company. Next, you will be able to select a device to claim.
+          </i>
+        </small>
+      </div>
+    </div>
+  </ion-content>
+  <ion-footer-bar align-title="center" class="bar-positive">
+    <div class="button-bar">
+      <a ng-click="vm.onCancel()" class="button button-assertive icon-left ion-close-circled">Cancel</a>
+      <a ng-disabled="!vm.newOrgName" ng-click="vm.addOrg()" class="button button-balanced icon-left ion-checkmark-round">Save</a>
+    </div>
+  </ion-footer-bar>
+</ion-view>

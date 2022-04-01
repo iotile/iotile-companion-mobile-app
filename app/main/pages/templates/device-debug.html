@@ -1,0 +1,69 @@
+<ion-view view-title="Device Debug View">
+    <ion-nav-buttons side="right">
+    </ion-nav-buttons>
+    <ion-content class="padding">
+        <ion-list>
+        <ion-item class="item item-text-wrap" style="color:red" ng-if="vm.error">
+            {{ vm.error }}
+        </ion-item>
+        <ion-item class="item energized" ng-click="vm.showLocallyModifiedInfo()" ng-if="vm.project.deviceModified(vm.cloudDevice.slug)">
+            Local Modifications (click for details)
+        </ion-item>
+        <device-label-item></device-label-item>
+        <report-progress-indicator></report-progress-indicator>
+        <rssi></rssi>
+        <ion-item class="item item-divider">
+            Device Information
+        </ion-item>
+        <ion-item class="item">
+            Connection Interval: {{ vm.connectionInterval || 'Unknown...'}}
+        </ion-item>
+        <ion-item class="item">
+            OS Tag: {{ vm.deviceInfo.osTag }} ({{ vm.deviceInfo.osVersion }})
+        </ion-item>
+        <ion-item class="item">
+            App Tag: {{ vm.deviceInfo.appTag}} ({{ vm.deviceInfo.appVersion }})
+        </ion-item>
+        <ion-item class="item">
+            Controller Hardware: {{ vm.deviceInfo.controllerHWString }}
+        </ion-item>
+        <ion-item class="item item-divider">
+            Discovered Streams
+        </ion-item>
+        <ion-item class="item" ng-repeat="(stream, value) in vm.discoveredStreams">
+            {{ stream }}
+            <span class="badge badge-positive">
+                {{ value }}
+            </span>
+        </ion-item>
+        <ion-item class="item item-divider" ng-if="vm.deviceInfo.appTag == 2049">
+            POD-1M Operations
+        </ion-item>
+        <ion-item class="item", ng-click="vm.downloadPOD1M(false)" ng-if="vm.deviceInfo.appTag == 2049">
+            Download All Data (all waveforms)
+        </ion-item>
+        <ion-item class="item", ng-click="vm.downloadPOD1M(true)" ng-if="vm.deviceInfo.appTag == 2049">
+            Download All Data (new waveforms)
+        </ion-item>
+        <ion-item class="item", ng-click="vm.downloadPOD1MReportsOnly()" ng-if="vm.deviceInfo.appTag == 2049">
+            Download Reports Only
+        </ion-item>
+        <ion-item class="item", ng-click="vm.downloadPOD1M(true, true)" ng-if="vm.deviceInfo.appTag == 2049">
+            Download and Save (new waveforms)
+        </ion-item>
+        </ion-list>
+    </ion-content>
+    <ion-footer-bar align-title="center" class="bar-positive">
+        <div class="buttons">
+        </div>
+        <h1 class="title">
+        <upload-logs-button></upload-logs-button>
+        </h1>
+        <div class="buttons">
+        <button class="button" ng-click="vm.showSettings()">
+        <i class="icon ion-settings"></i>
+        </button>
+        </div>
+    </ion-footer-bar>
+</ion-view>
+    

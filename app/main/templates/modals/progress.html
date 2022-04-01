@@ -1,0 +1,49 @@
+<ion-modal-view class="">
+  <div>
+    <ion-header-bar class="bar-positive">
+      <h1 class="title">{{ ::vm.title }}</h1>
+    </ion-header-bar>
+    <ion-content>
+      <ion-list>
+        <ion-item class="item item-divider">
+          Information
+        </ion-item>
+        <ion-item class="item item-text-wrap">
+          <p>{{ ::vm.description }}</p>
+        </ion-item>
+        <ion-item class="item item-text-wrap item-icon-left" ng-if="vm.manager.priorityMessage">
+            {{ vm.manager.priorityMessage.message }}
+            <i class="icon {{ vm.manager.priorityMessage.iconClass }}"></i>
+          </ion-item>
+        <ion-item class="item item-divider" ng-if="vm.manager.finishedTasks < vm.manager.totalTasks">
+          Progress
+        </ion-item>
+        <ion-item class="item" ng-if="vm.manager.finishedTasks < vm.manager.totalTasks">
+          <progress value="{{ vm.manager.finishedTasks }}" max="{{ vm.manager.totalTasks }}" />
+        </ion-item>
+        <ion-item class="item" ng-if="vm.manager.subTaskInProgress">
+          <p>{{ vm.manager.subTaskDescription }}</p>
+        </ion-item>
+        <ion-item class="item" ng-if="vm.manager.subTaskInProgress && vm.manager.subTaskTotal > 1">
+          <progress value="{{ vm.manager.subTaskFinished }}" max="{{ vm.manager.subTaskTotal }}" />
+        </ion-item>
+        <ion-item class="item" ng-if="vm.manager.subTaskInProgress && vm.manager.subTaskTotal > 1">
+          <p>{{ vm.manager.subSubTaskDescription }}</p>
+        </ion-item>
+        <ion-item class="item item-divider" ng-if="vm.manager.messages.length">
+          Messages
+        </ion-item>
+        <ion-item class="item item-text-wrap item-icon-left" ng-repeat="message in vm.manager.messages">
+          {{ message.message }}
+          <i class="icon {{ message.iconClass }}"></i>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+    <ion-footer-bar align-title="center" class="bar-positive">
+      <div class="button-bar" ng-if="vm.showButtons">
+        <a ng-if="vm.deferredResolve" ng-click="vm.onClose()" class="button button-positive">Close</a>
+        <a ng-if="vm.showTryAgainButton" ng-click="vm.onTryAgain()" class="button button-postive">Try Again</a>
+      </div>
+    </ion-footer-bar>
+  </div>
+</ion-modal-view>

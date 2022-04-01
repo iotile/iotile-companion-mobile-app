@@ -1,0 +1,55 @@
+<ion-view> 
+  <ion-nav-title>{{ vm.title }}</ion-nav-title>
+  <ion-nav-buttons side="right">
+  </ion-nav-buttons>
+  <!-- do you want padding? -->
+  <ion-content class="padding">
+    <ion-list>
+      <ion-item class="item item-text-wrap" style="color:red" ng-if="vm.error">
+        {{ vm.error }}
+      </ion-item>
+      <ion-item class="item energized" ng-click="vm.showLocallyModifiedInfo()" ng-if="vm.project.deviceModified(vm.cloudDevice.slug)">
+        Local Modifications (click for details)
+      </ion-item>
+      <device-label-item></device-label-item>
+      <report-progress-indicator></report-progress-indicator>
+      <ion-item class="item" ng-if="vm.ioInfo">
+        <div class="row">
+          <h2>{{ ::vm.ioInfo.label }}</h1>
+        </div>
+        <div class="row">
+          <a style="width: 50%" ng-repeat="lid in vm.ioInfo.order">
+            <div class="col">
+              <div style="min-height:80%; min-width: 50%" class="card padding">
+                <div class="text-center">{{ ::vm.ioInfo.map[lid].label }}</div><br/>
+                <div style="margin-bottom:12px" class="text-center">
+                  <span style="font-size:24px">{{ vm.lastValue(lid) }}</span>
+                  <br/>
+                  <span>{{ vm.getUnits(lid, true) }}</span>
+                  <br ng-if="!vm.getUnits(lid, true)"/>
+                </div>
+                <br/>
+                <i class="icon {{ vm.ioInfo.map[lid].icon }}"></i>
+                <button ng-if="vm.ioInfo.map[lid].resetConfigId" style="float:right; margin-top:-10px" class="button button-small button-assertive"
+                        ng-click="vm.resetWidget(lid)"
+                        ion-stop-event="click">
+                   Reset
+                </button>
+              </div>
+            </div>
+          </a>
+        </div>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+  <ion-footer-bar align-title="center" class="bar-positive">
+    <h1 class="title">
+      <upload-logs-button></upload-logs-button>
+    </h1>
+    <div class="buttons">
+      <button class="button" ng-click="vm.showSettings()">
+      <i class="icon ion-settings"></i>
+    </button>
+    </div>
+  </ion-footer-bar>
+</ion-view>

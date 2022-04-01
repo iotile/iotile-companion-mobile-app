@@ -1,0 +1,68 @@
+<ion-side-menus enable-menu-with-back-views="false">
+
+  <!-- CONTENT -->
+  <ion-side-menu-content>
+
+    <!-- header bar -->
+    <!-- the nav bar will be updated as we navigate between views -->
+    <ion-nav-bar class="bar-positive">
+      <!-- back button, shown if applicable -->
+      <ion-nav-back-button>
+      </ion-nav-back-button>
+      <!-- nav button, shown if applicable -->
+      <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+        </button>
+      </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <!-- ROUTING INJECTED HERE: pageContent -->
+    <ion-nav-view name="pageContent"></ion-nav-view>
+
+  </ion-side-menu-content>
+
+  <!-- SIDEMENU -->
+  <ion-side-menu side="left">
+
+    <!-- menu header -->
+    <ion-header-bar class="bar-positive">
+      <h1 class="title">Menu</h1>
+    </ion-header-bar>
+
+    <!-- menu content -->
+    <ion-content>
+      <ion-list>
+        <ion-item  class="item item-icon-left" menu-close ui-sref="main.home">
+          <i class="icon ion-home side-menu-icon"></i>
+          Active Project
+        </ion-item>
+        <ion-item  class="item item-icon-left" menu-close ui-sref="main.projectList">
+          <i class="icon ion-folder side-menu-icon"></i>
+          Projects
+        </ion-item>
+        <ion-item  class="item item-icon-left" menu-close ng-click="startSetup();">
+          <i class="icon ion-wand side-menu-icon"></i>
+          New Device Setup
+        </ion-item>
+        <ion-item class="item item-icon-left" menu-close ui-sref="main.help">
+          <i class="icon ion-help side-menu-icon"></i>
+          Help
+        </ion-item>
+        <ion-item class="item item-icon-left" menu-close ui-sref="main.about">
+          <i class="icon ion-settings side-menu-icon"></i>
+          About
+        </ion-item>
+        <ion-item class="item item-icon-left" menu-close ui-sref="main.remote" ng-if="userService.isStaff()">
+          <i class="icon ion-settings side-menu-icon"></i>
+          Remote Access
+          </ion-item>
+        <ion-item  class="item item-icon-left" menu-close ng-click="onLogout();">
+          <i class="icon ion-log-out side-menu-icon"></i>
+          Logout
+        </ion-item>
+      </ion-list>
+    </ion-content>
+
+  </ion-side-menu>
+
+</ion-side-menus>

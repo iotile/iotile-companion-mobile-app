@@ -1,0 +1,25 @@
+<ion-modal-view class="">
+  <div class="ion-modal-content-stream-adjustments">
+    <ion-header-bar class="bar-positive">
+      <h1 class="title">Select a Project</h1>
+    </ion-header-bar>
+    <ion-content>
+      <ion-list ng-repeat="org in vm.orgs">
+      <ion-item class="item item-divider">
+        {{ org.name }}
+      </ion-item>
+      <ion-item class="item-icon-right" ng-repeat="project in org.projects"
+                ng-click="vm.onSelectProject(project.id)">
+        <h2>{{ project.name }}</h2>
+        <i class="icon ion-ios-checkmark" ng-if="project.id === vm.selectedProjectID"></i>
+      </ion-item>
+    </ion-list>
+    </ion-content>
+    <ion-footer-bar align-title="center" class="bar-positive">
+      <div class="button-bar">
+        <a ng-click="vm.onCancel()" class="button button-assertive icon-left ion-close-circled">Cancel</a>
+        <a ng-disabled="!(vm.selectedProjectID)" ng-click="vm.onSave()" class="button button-balanced icon-left ion-checkmark-round">Select</a>
+      </div>
+    </ion-footer-bar>
+  </div>
+</ion-modal-view>

@@ -1,0 +1,50 @@
+<ion-view hide-nav-bar="true" view-title="Login">
+
+  <!-- do you want padding? -->
+  <ion-content class="padding loginpage" ng-style="vm.loginStyle">
+
+    <!--
+    <div class="item item-avatar">
+      <img ng-src="main/assets/images/iotile@2x.png">
+      <h2>{{ vm.name }}</h2>
+      <p ng-if="vm.version">v{{ vm.version }}</p>
+    </div>
+    -->
+
+    <div class="item item-icon-left item-assertive item-text-wrap" ng-if="vm.error">
+      <i class="icon ion-alert-circled"></i>
+      <p style="color: white;"><b>{{ vm.error }}</b></p>
+    </div>
+
+    <div class="item item-assertive item-text-wrap" ng-if="vm.passreset">
+    <p style="color: white;"><b>Forgot your password? <a ng-click="vm.onResetPassword()">Click here.</a></b></p>
+    </div>
+
+  </ion-content>
+
+  <div class="card loginform">
+    <form name="vm.loginForm" novalidate>
+      <div style="margin-top: 10px" class="list list-inset">
+        <label class="item item-input" ng-class="{ 'has-error' : vm.loginForm.email.$invalid && vm.loginForm.$submitted, 'valid' : vm.loginForm.email.$valid && vm.loginForm.$submitted}">
+              <input type="email" placeholder="Email" name="email" ng-model="vm.user.email" ng-minlength="1" required>
+            </label>
+        <label class="item item-input" ng-class="{ 'has-error' : vm.loginForm.password.$invalid && vm.loginForm.$submitted, 'valid' : vm.loginForm.password.$valid && vm.loginForm.$submitted}">
+              <input type="password" placeholder="Password" name="password" ng-model="vm.user.password" ng-minlength="1" required>
+            </label>
+        <div class="padding">
+          <button type="submit" class="button button-block button-positive" ng-click="vm.onLogin(vm.loginForm)" ng-disabled="vm.loginForm.$invalid">Log in</button>
+          <button class="button button-block button-success" ng-click="vm.onSignup()">Create an Account</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <br>
+
+  <div style="position: absolute; bottom: 10px; right: 10px; color: white;">
+    <small>
+    v{{ vm.version }}
+    </small>
+  </div>
+
+
+</ion-view>

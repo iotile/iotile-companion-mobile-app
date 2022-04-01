@@ -1,0 +1,52 @@
+<ion-view view-title="Device Settings">
+  <ion-content>
+    <div class="item item-icon-left item-assertive item-text-wrap" ng-if="vm.error">
+      <i class="icon ion-alert-circled"></i>
+      <p style="color: white;"><b>{{ vm.error }}</b></p>
+    </div>
+    <ion-list>
+      <ion-item class="item item-divider">
+        General Settings
+      </ion-item>
+      <ion-item ng-click="vm.setLabel()" class="item item-icon-right">
+        Edit Label <span ng-if="vm.labelModified()" class="energized">(modified)</span>
+        <i class="icon ion-edit"></i>
+      </ion-item>
+      <ion-item ng-click="vm.setLocation()" class="item item-icon-right">
+        Edit Location <span ng-if="vm.locationModified()" class="energized">(modified)</span>
+        <i class="icon ion-map"></i>
+      </ion-item>
+      </ion-item>
+      <ion-item class="item item-divider">
+        IO Configuration
+      </ion-item>
+      <ion-item ng-repeat="variable in vm.variables" ng-click="vm.setIO(variable.getHexLid())" class="item item-icon-right">
+        Device {{ variable.name }} <span ng-if="vm.variableModified(variable.getHexLid())" class="energized">(modified)</span>
+        <i class="icon ion-shuffle"></i>
+      </ion-item>
+      <ion-item ng-repeat="lid in vm.ioInfo.order" ng-click="vm.setIO(lid)" class="item item-icon-right">
+        Device {{ vm.ioInfo.map[lid].label }} <span ng-if="vm.variableModified(lid)" class="energized">(modified)</span>
+        <i class="icon ion-shuffle"></i>
+      </ion-item>
+      <ion-item ng-if="vm.isTimerConfigurable" class="item item-divider">
+        Environmental
+      </ion-item>
+      <ion-item  ng-if="vm.isTimerConfigurable" class="item item-icon-right" ng-click="vm.getUserTimer()" >
+        Wakeup Timer
+        <i class="icon ion-chevron-right"></i>
+      </ion-item>
+      <ion-item class="item item-divider">
+        Advanced Options
+      </ion-item>
+      <ion-item class="item item-toggle">
+        No Data Upload
+        <label class="toggle toggle-assertive">
+          <input type="checkbox" ng-model="vm.drifterMode" ng-change="vm.toggleDrifterMode()">
+          <div class="track">
+            <div class="handle"></div>
+          </div>
+        </label>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

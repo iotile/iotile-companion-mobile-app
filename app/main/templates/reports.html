@@ -1,0 +1,47 @@
+<ion-view view-title="Device Logs">
+  <ion-content>
+    <div class="item item-icon-left item-assertive item-text-wrap" ng-if="vm.error">
+      <i class="icon ion-alert-circled"></i>
+      <p style="color: white;"><b>{{ vm.error }}</b></p>
+    </div>
+    <div class="item item-text-wrap">
+      <p class="note">Here you can see the status of data reports on your phone.</p>
+      <div class="row" style="width: 100%; padding-top: 20px; font-size: 30px;">
+            <div class="col">
+              <div style="position: relative; width: 100%;"><i class="icon ion-ios-cloud-upload assertive" style="position: absolute; top: calc(50% - 10px); left: calc(50% - 15px);"></i></div>
+              <span style="display: block; width: 100%; text-align: center; padding-top: 20px; font-size: 14px">Upload Needed</span>
+            </div>
+            <div class="col">
+              <div style="position: relative; width: 100%;"><i class="icon ion-ios-timer energized" style="position: absolute; top: calc(50% - 10px); left: calc(50% - 15px);"></i></div>
+              <span style="display: block; width: 100%; text-align: center; padding-top: 20px; font-size: 14px">Waiting for Cloud</span>
+            </div>
+            <div class="col">
+              <div style="position: relative; width: 100%;"><i class="icon ion-checkmark-circled balanced" style="position: absolute; top: calc(50% - 10px); left: calc(50% - 15px);"></i></div>
+              <span style="display: block; width: 100%; text-align: center; padding-top: 20px; font-size: 14px">Report Confirmed</span>
+            </div>
+      </div>
+    </div>
+    <ion-list>  
+      <ion-item class="item item-divider">Robust Reports</ion-item>
+      <ion-item class="item item-icon-right" ng-click="vm.reportInfo(report)" ng-repeat="report in vm.reports | orderBy:'timestamp':true">
+        <h2>{{ vm.parseDate(report) }}</h2>
+        <p>{{ vm.reportLabel(report) }}</p>
+        <p>Device: {{ report.deviceSlug }}</p>
+        <i ng-class="vm.reportBadgeClass(report)"></i>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+  <ion-footer-bar align-title="center" class="bar-positive">
+    <h1 class="title">
+      <button style="margin-top:4px; border-color: #015083" ng-click="vm.clearAllErrors()" class="button button-assertive"
+              ng-if="vm.hasErrors">
+        <i class="icon ion-android-alert"></i> <b>Clear Errors</b>
+      </button>
+      <upload-logs-button include-errors="true"></upload-logs-button>
+      <button style="margin-top:4px; border-color: #015083" ng-click="vm.clearFinished()" class="button button-balanced"
+              ng-if="vm.hasFinished">
+        <b>Clear Finished</b>
+      </button>
+    </h1>
+  </ion-footer-bar>
+</ion-view>
